@@ -5,14 +5,14 @@ import { Button } from "../components/ui/Button"
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/Sheet"
 
 const navItems = [
-    { title: "Home", href: "#" },
-    { title: "About", href: "#about" },
-    { title: "Services", href: "#services" },
-    { title: "Gallery", href: "#gallery" },
-    { title: "Activities", href: "#activities" },
-    { title: "Publications", href: "#publications" },
-    { title: "Events", href: "#events" },
-    { title: "Donate", href: "#donate" },
+    { title: "HOME", href: "#" },
+    { title: "SCHOOL", href: "#SCHOOL" },
+    { title: "GALLERY", href: "#GALLERY" },
+    { title: "ACTIVITIES", href: "#ACTIVITIES" },
+    { title: "PUBLICATION", href: "#PUBLICATION" },
+    { title: "ABOUT US", href: "#ABOUT US" },
+    { title: "CONTACT US", href: "#CONTACT US" },
+   
 ]
 
 export function Header() {
