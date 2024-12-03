@@ -215,7 +215,7 @@ export default function Home() {
                             >
                                 Temple Gallery
                             </motion.h2>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 ">
                                 {GalleryImages.map((image, index) => (
                                     <motion.div
                                         key={index}
@@ -227,7 +227,7 @@ export default function Home() {
                                             alt={'Gallery Image'}
                                             width={300}
                                              height={300}
-                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96 object-center md:object-top"
+                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96 object-center object-top"
                                         />
                                     </motion.div>
                                 ))}
