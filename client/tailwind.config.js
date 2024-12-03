@@ -1,7 +1,7 @@
-const colors = require('./src/Utilis/Colors'); // Adjust path as needed
+const colors = require('./src/Utilis/Colors'); 
 
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Adjust according to your file structure
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], 
   theme: {
     extend: {
       colors: {

@@ -1,20 +1,41 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-// import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from "../components/ui/Button"
-import { Card, CardContent } from "../components/ui/Card"
-import { Loader } from '../components/ui/Loader'
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
-import { Image } from '../components/ui/Image'
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+// import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/Card";
+import { Loader } from '../components/ui/Loader';
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { Image } from '../components/ui/Image';
+import img1 from '../images/SilderImg/img1.jpg';
+import img2 from '../images/SilderImg/img2.jpg';
+import img4 from '../images/SilderImg/img4.jpg';
+import Gallery1 from '../images/Gallery/Gallery1.jpg';
+import Gallery2 from '../images/Gallery/Gallery2.jpg';
+import Gallery3 from '../images/Gallery/Gallery3.jpg';
+import Gallery4 from '../images/Gallery/Gallery4.jpg';
+import Gallery5 from '../images/Gallery/Gallery5.jpg';
+import Gallery6 from '../images/Gallery/Gallery6.jpg';
+import Gallery7 from '../images/Gallery/Gallery7.jpg';
+import Gallery8 from '../images/Gallery/Gallery8.jpg';
 
 const sliderImages = [
-    "https://images.unsplash.com/photo-1604873917606-e1fec6be48b8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGVtcGxlfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1609619385002-f40f1df9b7eb?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHRlbXBsZXxlbnwwfHwwfHx8MA%3D%3D",
-    "https://images.unsplash.com/photo-1609619385525-18e1e5e0d0ab?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRlbXBsZXxlbnwwfHwwfHx8MA%3D%3D",
+    img4,
+    img2,
+    img1,
 ]
+
+const GalleryImages = [
+    Gallery1,
+    Gallery8,
+    Gallery4,
+    Gallery5,
+    Gallery6,
+    Gallery7,
+    Gallery3,
+    Gallery2,
+]
+
 
 export default function Home() {
     const [isLoading, setIsLoading] = useState(true)
@@ -35,13 +56,13 @@ export default function Home() {
         return () => clearInterval(timer)
     }, [])
 
-    const nextSlide = () => {
-        setCurrentSlide((prev) => (prev + 1) % sliderImages.length)
-    }
+    // const nextSlide = () => {
+    //     setCurrentSlide((prev) => (prev + 1) % sliderImages.length)
+    // }
 
-    const prevSlide = () => {
-        setCurrentSlide((prev) => (prev - 1 + sliderImages.length) % sliderImages.length)
-    }
+    // const prevSlide = () => {
+    //     setCurrentSlide((prev) => (prev - 1 + sliderImages.length) % sliderImages.length)
+    // }
 
     return (
         <div className='min-h-screen bg-background'>
@@ -67,9 +88,9 @@ export default function Home() {
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                             <div className="text-center">
                                 <motion.h1
-                                    className="text-4xl md:text-6xl font-bold text-white mb-4"
-                                    initial={{ y: -50, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
+                                    className="text-4xl md:text-6xl font-bold text-white mb-4 opacity-50"
+                                    initial={{ y: -50, opacity: 0.7 }}
+                                    animate={{ y: 0, opacity: 0.7 }}
                                     transition={{ delay: 0.2 }}
                                 >
                                     Welcome to Our Temple
@@ -85,15 +106,14 @@ export default function Home() {
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    transition={{ delay: 0.6 }}
-                                >
-                                    <Button className="bg-accent text-text hover:bg-primary hover:text-white transition-colors">
+                                    transition={{ delay: 0.6 }}>
+                                    <Button className="bg-accent text-text hover:bg-primary hover:text-white transition-colors border-0">
                                         Explore Our Sanctuary
                                     </Button>
                                 </motion.div>
                             </div>
                         </div>
-                        <div className="absolute inset-x-0 bottom-4 flex justify-center space-x-2">
+                        <div className="absolute inset-x-0 bottom-4 flex justify-center space-x-2 ">
                             {sliderImages.map((_, index) => (
                                 <button
                                     key={index}
@@ -125,7 +145,7 @@ export default function Home() {
                                     viewport={{ once: true }}
                                 >
                                     <Image
-                                        src="https://source.unsplash.com/random/600x400?temple"
+                                        src={img1}
                                         alt="About Our Temple"
                                         width={600}
                                         height={400}
@@ -163,7 +183,7 @@ export default function Home() {
                                 Our Services
                             </motion.h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {['Daily Prayers', 'Meditation Classes', 'Cultural Events'].map((service, index) => (
+                                {['Daily Prayers', 'School', 'Cultural Events'].map((service, index) => (
                                     <motion.div
                                         key={service}
                                         initial={{ opacity: 0, y: 50 }}
@@ -174,7 +194,7 @@ export default function Home() {
                                         <Card className="bg-white">
                                             <CardContent className="p-6">
                                                 <h3 className='text-xl font-semibold text-primary mb-2'>{service}</h3>
-                                                <p className='text-text'>Join us for our {service.toLowerCase()} and experience spiritual growth.</p>
+                                                <p className='text-text truncate'>Join us for our {service.toLowerCase()} and experience spiritual growth.</p>
                                             </CardContent>
                                         </Card>
                                     </motion.div>
@@ -196,20 +216,18 @@ export default function Home() {
                                 Temple Gallery
                             </motion.h2>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                                {GalleryImages.map((image, index) => (
                                     <motion.div
-                                        key={i}
+                                        key={index}
                                         initial={{ opacity: 0, scale: 0.8 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.5 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <Image
-                                            src={`https://source.unsplash.com/random/300x300?temple&sig=${i}`}
-                                            alt={`Gallery Image ${i}`}
+                                        viewport={{ once: true }} >
+                                        <Image src={image}
+                                            alt={'Gallery Image'}
                                             width={300}
-                                            height={300}
-                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+                                             height={300}
+                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96 object-center md:object-top"
                                         />
                                     </motion.div>
                                 ))}
@@ -221,7 +239,7 @@ export default function Home() {
                     <section id="activities" className='py-16 bg-primary text-white'>
                         <div className="container mx-auto px-4">
                             <motion.h2
-                                className="text-3xl font-bold text-center mb-8"
+                                   className="text-3xl font-bold text-center mb-8"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
