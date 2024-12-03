@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Menu } from 'lucide-react'
-import { Button } from "../components/ui/Button"
-import { Sheet, SheetContent, SheetTrigger } from "../components/ui/Sheet"
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Menu } from 'lucide-react';
+import { Button } from "../components/ui/Button";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/Sheet";
+import logo from '../images/logoMain.png';
+import { Link } from "react-router-dom";
 
 const navItems = [
-    { title: "HOME", href: "#" },
-    { title: "SCHOOL", href: "#SCHOOL" },
-    { title: "GALLERY", href: "#GALLERY" },
-    { title: "ACTIVITIES", href: "#ACTIVITIES" },
-    { title: "PUBLICATION", href: "#PUBLICATION" },
-    { title: "ABOUT US", href: "#ABOUT US" },
-    { title: "CONTACT US", href: "#CONTACT US" },
-   
-]
+    { title: "HOME", to: "/" },
+    { title: "ABOUT US", to: "/about-us" },
+    { title: "SCHOOL", to: "/school" },
+    { title: "GALLERY", to: "/gallery" },
+    { title: "ACTIVITIES", to: "/activities" },
+    { title: "PUBLICATION", to: "/publication" },
+    { title: "CONTACT US", to: "/contact-us" },
+];
 
 export function Header() {
     const [isScrolled, setIsScrolled] = useState(false)
@@ -38,27 +39,28 @@ export function Header() {
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className={`text-2xl font-bold ${isScrolled ? 'text-white' : 'text-primary'}`}
-                    >
-                        Temple Name
+                        className={`text-2xl font-bold ${isScrolled ? 'text-white' : 'text-primary'}`}>
+                        <img src={logo} alt="Main Logo" className="w-60" />
                     </motion.div>
 
-                    <nav className="hidden lg:flex space-x-4">
+                    <nav className="hidden lg:flex space-x-4 ">
                         {navItems.map((item, index) => (
-                            <motion.a
+                            <motion.div
                                 key={item.title}
-                                href={item.href}
                                 initial={{ opacity: 0, y: -20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className={`${isScrolled ? 'text-white' : 'text-primary'} hover:text-accent transition-colors text-sm`}
                             >
-                                {item.title}
-                            </motion.a>
+                                <Link
+                                    to={item.to || "/"}
+                                    className={`${isScrolled ? 'text-white' : 'text-primary'} hover:text-accent transition-colors text-md`}>
+                                    {item.title}
+                                </Link>
+                            </motion.div>
                         ))}
                     </nav>
 
-                    <div className="lg:hidden">
+                    <div className="lg:hidden  ">
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon" className={isScrolled ? 'text-white' : 'text-primary'}>
@@ -66,7 +68,7 @@ export function Header() {
                                 </Button>
                             </SheetTrigger>
                             <SheetContent className='bg-background'>
-                                <div className="flex flex-col space-y-4 mt-8">
+                                <div className="flex flex-col space-y-4 mt-8 px-4">
                                     {navItems.map((item) => (
                                         <a
                                             key={item.title}
@@ -85,4 +87,3 @@ export function Header() {
         </header>
     )
 }
-

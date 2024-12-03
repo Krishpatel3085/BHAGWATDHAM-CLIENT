@@ -1,66 +1,6 @@
-// import { colors } from "../Utilis/Colors";
-
-// const navItems = [
-//   { title: "Home", href: "#" },
-//   { title: "About", href: "#about" },
-//   { title: "Services", href: "#services" },
-//   { title: "Gallery", href: "#gallery" },
-//   { title: "Activities", href: "#activities" },
-//   { title: "Publications", href: "#publications" },
-//   { title: "Events", href: "#events" },
-//   { title: "Donate", href: "#donate" },
-// ];
-
-// export function Footer() {
-//   return (
-//     <footer style={{ backgroundColor: colors.secondary, color: colors.white }} className="py-8">
-//       <div className="container mx-auto px-4">
-//         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-//           <div>
-//             <h3 className="text-xl font-bold mb-4">Temple Name</h3>
-//             <p>123 Spiritual Street</p>
-//             <p>Serenity City, SC 12345</p>
-//           </div>
-//           <div>
-//             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-//             <ul className="space-y-2">
-//               {navItems.map((item) => (
-//                 <li key={item.title}>
-//                   <a
-//                     href={item.href}
-//                     className="transition-colors"
-//                     style={{ color: colors.white }}
-//                     onMouseEnter={(e) => (e.target.style.color = colors.accent)}
-//                     onMouseLeave={(e) => (e.target.style.color = colors.white)}
-//                   >
-//                     {item.title}
-//                   </a>
-//                 </li>
-//               ))}
-//             </ul>
-//           </div>
-//           <div>
-//             <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
-//             <p>Phone: (123) 456-7890</p>
-//             <p>Email: info@templename.com</p>
-//             <div className="flex space-x-4 mt-4">
-//               {/* Add social media icons here */}
-//             </div>
-//           </div>
-//         </div>
-//         <div className="mt-8 text-center">
-//           <p>&copy; 2024 Temple Name. All rights reserved.</p>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// }
-
-
-
 import { Facebook, Twitter, Youtube, Instagram, Send, Music, Phone, Mail, MapPin } from 'lucide-react'
-import { colors } from '../Utilis/Colors'
 import { Image } from '../components/ui/Image'
+import logo from '../images/logoMain.png';
 
 const quickLinks = [
   { title: "Daily Katha", href: "#" },
@@ -79,10 +19,10 @@ const rightLinks = [
 ]
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Facebook, href: "https://www.facebook.com/bhagwatdhamgurukuldhrangadhra/", label: "Facebook" },
   { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Youtube, href: "#", label: "Youtube" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Youtube, href: "https://www.youtube.com/c/BhagwatdhamGurukulDhrangadhra", label: "Youtube" },
+  { icon: Instagram, href: "https://www.instagram.com/bhagwatdham_gurukul_official/", label: "Instagram" },
   { icon: Send, href: "#", label: "Telegram" },
   { icon: Music, href: "#", label: "Spotify" },
 ]
@@ -95,7 +35,7 @@ export function Footer() {
           {/* Left Section - Logo and Address */}
           <div className="space-y-4">
             <Image
-              src="/placeholder.svg?height=80&width=300&text=Temple+Logo"
+              src={logo}
               alt="Temple Logo"
               width={300}
               height={80}
@@ -103,25 +43,24 @@ export function Footer() {
             />
             <div className="space-y-2">
               <h3 className='text-lg font-semibold text-secondary'>
-                Shree Swaminarayan Sanskardham Gurukul
+                Shree Swaminarayan BhagwatDham Gurukul
               </h3>
               <div className="flex items-start space-x-2 text-gray-600">
                 <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                 <p>
-                  Dhrangdhara, Halwad Road, Post Box No. 22,
-                  <br />
-                  Dist.Surendranagar, Gujarat, India. 363310
+                  Near ahemdabad- morbi baypass, Halvad road, opp.<br />
+                  Shreeji multispeciality hospital, Dhrangadhra, Gujarat 363310
                 </p>
               </div>
               <div className="flex items-center space-x-2 text-gray-600">
                 <Phone className="w-4 h-4" />
-                <a href="tel:+919825803174" className="hover:text-[${colors.primary}]">
+                <a href="tel:+919825803174" className="hover:text-primary">
                   +91 98258 03174
                 </a>
               </div>
               <div className="flex items-center space-x-2 text-gray-600">
                 <Mail className="w-4 h-4" />
-                <a href="mailto:info@ssgd.org" className="hover:text-[${colors.primary}]">
+                <a href="mailto:info@ssgd.org" className="hover:text-primary">
                   info@ssgd.org
                 </a>
               </div>
@@ -181,7 +120,7 @@ export function Footer() {
           <p className="mt-1">
             Developed by{' '}
             <a
-              href="#"
+              href="copyWrite"
               className='text-primary hover:underline'
               target="_blank"
               rel="noopener noreferrer"
@@ -194,4 +133,3 @@ export function Footer() {
     </footer>
   )
 }
-
