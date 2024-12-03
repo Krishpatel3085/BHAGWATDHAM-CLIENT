@@ -44,18 +44,18 @@ export function Loader() {
         /> */}
 
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          initial={{ opacity: 0, y: 20, scale: 0 }}
+          animate={{ opacity: 1, y: 0 , scale: 1 }}
+          transition={{ delay: 0.6 }}
           className="text-2xl font-bold mb-2"
           style={{ color: colors.primary }}>
-         <img src={lodermain} alt="loader logo"  className="w-40 h-40"/></motion.h2>
+          <img src={lodermain} alt="loader logo" className="w-40 h-48" /></motion.h2>
 
         {/* <div
           className="w-64 h-2 rounded-full overflow-hidden"
           style={{ backgroundColor: colors.secondary }}
         > */}
-          {/* <motion.div
+        {/* <motion.div
             className="h-full"
             style={{ backgroundColor: colors.primary, width: `${progress}%` }}
             initial={{ width: 0 }}

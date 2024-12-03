@@ -6,6 +6,13 @@ import { Footer } from '../components/Footer';
 // import { colors } from '../../utils/colors'
 import { Image } from '../components/ui/Image';
 import About1 from '../images/AboutUsImage/About1.jpg';
+import About2 from '../images/AboutUsImage/About2.jpg';
+import Gallery8 from '../images/Gallery/Gallery8.jpg';
+import History from '../images/AboutUsImage/History2.png';
+import facilities1 from '../images/AboutUsImage/facilities1.jpg';
+import facilities2 from '../images/AboutUsImage/facilities2.webp';
+import { Title } from '@radix-ui/react-dialog';
+
 
 export default function AboutPage() {
     return (
@@ -15,11 +22,11 @@ export default function AboutPage() {
             {/* Hero Section with Breadcrumb */}
             <section className="relative h-[300px] overflow-hidden">
                 <Image
-                    src="/placeholder.svg?height=300&width=1920&text=Temple+Hero"
+                    src={About2}
                     alt="Temple Hero"
                     width={1920}
                     height={300}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-center bg-black bg-opacity-50 "
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
                     <motion.div
@@ -107,9 +114,12 @@ export default function AboutPage() {
                             </div>
                         </motion.div>
                         <div className="space-y-6">
-                            {['LORD SWAMINARAYAN', 'THE FOUNDER'].map((title, index) => (
+                            {[
+                                { title: 'LORD SWAMINARAYAN',image: History },
+                                { title: 'THE FOUNDER' , image: Gallery8 }
+                            ].map((history, index) => (
                                 <motion.div
-                                    key={title}
+                                    key={index}
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
@@ -117,16 +127,16 @@ export default function AboutPage() {
                                 >
                                     <Card className="bg-background">
                                         <CardContent className="p-6 text-center">
-                                            <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+                                            <div className="w-40 h-40 mx-auto mb-4 rounded-full overflow-hidden">
                                                 <Image
-                                                    src={`/placeholder.svg?height=96&width=96&text=${title}`}
-                                                    alt={title}
+                                                    src={history.image}
+                                                    alt={history.title}
                                                     width={96}
                                                     height={96}
-                                                    className="w-full h-full object-cover"
+                                                    className="w-full h-full object-cover object-center object-top"
                                                 />
                                             </div>
-                                            <h3 className="text-lg font-bold text-primary">{title}</h3>
+                                            <h3 className="text-lg font-bold text-primary">{history.title}</h3>
                                         </CardContent>
                                     </Card>
                                 </motion.div>
@@ -169,8 +179,8 @@ export default function AboutPage() {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { title: 'PRATHNA MANDIR', image: About1 },
-                            { title: 'YAGNSHALA', image: 'yagna' },
+                            { title: 'PRATHNA MANDIR', image: facilities1 },
+                            { title: 'YAGNSHALA', image: facilities2 },
                             { title: 'GAUSHALA', image: 'cow' },
                             { title: 'HOSTEL', image: 'hostel' }
                         ].map((facility, index) => (
@@ -184,14 +194,14 @@ export default function AboutPage() {
                             >
                                 <div className="relative w-32 h-32 sm:w-48 sm:h-48 mx-auto mb-4">
                                     <Image
-                                        src={facility}
+                                        src={facility.image}
                                         alt={facility.title}
                                         width={162}
                                         height={162}
                                         className="rounded-full img-fluid"
                                     />
                                 </div>
-                                <h3 className="text-base sm:text-lg font-bold text-secondary">{facility.title}</h3>
+                                <h3 className="text-base sm:text-lg font-bold text-secondary me-5">{facility.title}</h3>
                             </motion.div>
                         ))}
                     </div>
