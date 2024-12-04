@@ -31,15 +31,15 @@ export function Footer() {
   return (
     <footer className="bg-white py-12 border-t">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 space-x-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 space-x-6">
           {/* Left Section - Logo and Address */}
-          <div className="space-y-4 space-x-8">
+          <div className="space-y-4 space-x-6">
             <Image
               src={logo}
               alt="Temple Logo"
               width={300}
               height={80}
-              className="mb-4 ms-7"
+              className="mb-4 ms-3"
             />
             <div className="space-y-2">
               <h3 className='text-lg font-semibold text-secondary'>
@@ -116,7 +116,7 @@ export function Footer() {
 
         {/* Bottom Section - Copyright */}
         <div className="mt-12 pt-8 border-t text-center text-sm text-gray-600">
-          <p>© Copyright SSGD All Rights Reserved</p>
+          <p>© Copyright BSGD All Rights Reserved</p>
           <p className="mt-1">
             Developed by{' '}
             <a
@@ -125,7 +125,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Srashtasoft
+              KD Brothers
             </a>
           </p>
         </div>

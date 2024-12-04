@@ -22,12 +22,12 @@ export function Loader() {
       clearInterval(timer);
     };
   }, []);
-
+  console.log(progress)
   return (
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ duration: 0.5, delay: 2 }}
+      transition={{ duration: 0.8, delay: 2 }}
       className="fixed inset-0 z-50 flex items-center justify-center"
       style={{ backgroundColor: colors.background }} // Use inline styles for dynamic colors
     >
@@ -45,11 +45,11 @@ export function Loader() {
 
         <motion.h2
           initial={{ opacity: 0, y: 20, scale: 0 }}
-          animate={{ opacity: 1, y: 0 , scale: 1 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ delay: 0.6 }}
           className="text-2xl font-bold mb-2"
           style={{ color: colors.primary }}>
-          <img src={lodermain} alt="loader logo" className="w-40 h-48" /></motion.h2>
+          <img src={lodermain} alt="loader logo" className="w-40 h-48 animate-bounce" /></motion.h2>
 
         {/* <div
           className="w-64 h-2 rounded-full overflow-hidden"
