@@ -10,8 +10,10 @@ import About2 from '../images/AboutUsImage/About2.jpg';
 import Gallery8 from '../images/Gallery/Gallery8.jpg';
 import History from '../images/AboutUsImage/History2.png';
 import facilities1 from '../images/AboutUsImage/facilities1.jpg';
-import facilities2 from '../images/AboutUsImage/facilities2.webp';
-import { Title } from '@radix-ui/react-dialog';
+import facilities2 from '../images/AboutUsImage/facilities2.avif';
+import facilities3 from '../images/AboutUsImage/facilities3.webp';
+import facilities4 from '../images/AboutUsImage/facilities4.jpg';
+// import { Title } from '@radix-ui/react-dialog';
 
 
 export default function AboutPage() {
@@ -181,8 +183,8 @@ export default function AboutPage() {
                         {[
                             { title: 'PRATHNA MANDIR', image: facilities1 },
                             { title: 'YAGNSHALA', image: facilities2 },
-                            { title: 'GAUSHALA', image: 'cow' },
-                            { title: 'HOSTEL', image: 'hostel' }
+                            { title: 'GAUSHALA', image: facilities3 },
+                            { title: 'HOSTEL', image: facilities4 }
                         ].map((facility, index) => (
                             <motion.div
                                 key={facility.title}

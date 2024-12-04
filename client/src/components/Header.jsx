@@ -8,11 +8,11 @@ import { Link } from "react-router-dom";
 
 const navItems = [
     { title: "HOME", to: "/" },
-    { title: "ABOUT US", to: "/about-us" },
     { title: "SCHOOL", to: "/school" },
     { title: "GALLERY", to: "/gallery" },
     { title: "ACTIVITIES", to: "/activities" },
     { title: "PUBLICATION", to: "/publication" },
+    { title: "ABOUT US", to: "/about-us" },
     { title: "CONTACT US", to: "/contact-us" },
 ];
 
@@ -72,7 +72,7 @@ export function Header() {
                                     {navItems.map((item) => (
                                         <a
                                             key={item.title}
-                                            href={item.href}
+                                            href={item.to}
                                             className='text-primary hover:text-accent transition-colors text-left font-medium'
                                         >
                                             {item.title}
