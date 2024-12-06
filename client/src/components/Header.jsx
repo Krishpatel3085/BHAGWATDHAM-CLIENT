@@ -11,7 +11,7 @@ const navItems = [
     { title: "SCHOOL", to: "/school" },
     { title: "GALLERY", to: "/gallery" },
     { title: "ACTIVITIES", to: "/activities" },
-    { title: "PUBLICATION", to: "/publication" },
+    { title: "PUBLICATION", to: "/Publications" },
     { title: "ABOUT US", to: "/about-us" },
     { title: "CONTACT US", to: "/contact-us" },
 ];
