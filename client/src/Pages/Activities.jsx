@@ -8,6 +8,7 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 // import { colors } from '../../utils/colors'
 import { Image } from '../components/ui/Image'
+import About2 from '../images/AboutUsImage/About2.jpg';
 
 const activities = [
   {
@@ -35,7 +36,7 @@ export default function ActivitiesPage() {
       {/* Hero Section with Breadcrumb */}
       <section className="relative h-[300px] overflow-hidden">
         <Image
-          src="/placeholder.svg?height=300&width=1920&text=Activities+Hero"
+          src={About2}
           alt="Activities Hero"
           width={1920}
           height={300}
