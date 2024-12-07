@@ -16,6 +16,7 @@ import { Input } from "../components/ui/Input"
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import { Image } from '../components/ui/Image'
+import About2 from '../images/AboutUsImage/About2.jpg';
 
 
 const categories = [
@@ -83,7 +84,7 @@ export default function PublicationsPage() {
             {/* Hero Section with Breadcrumb */}
             <section className="relative h-[300px] overflow-hidden">
                 <Image
-                    src="/placeholder.svg?height=300&width=1920&text=Publications+Hero"
+                    src={About2}
                     alt="Publications Hero"
                     width={1920}
                     height={300}
