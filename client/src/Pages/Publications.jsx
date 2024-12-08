@@ -17,6 +17,12 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import { Image } from '../components/ui/Image'
 import About2 from '../images/AboutUsImage/About2.jpg';
+import Publication1 from '../images/Publication/bhagavad-gita.jpg'
+import Publication2 from '../images/Publication/Morning-prayers.jpg'
+import Publication3 from '../images/Publication/Spirtual-discource.jpg'
+import Publication4 from '../images/Publication/Temple.jpg'
+import Publication5 from '../images/Publication/Song.jpg'
+import Publication6 from '../images/Publication/Scared.jpg'
 
 
 const categories = [
@@ -31,37 +37,37 @@ const publications = [
     {
         id: 1,
         name: "Bhagavad Gita",
-        image: "/placeholder.svg?height=400&width=400&text=Bhagavad+Gita",
+        image: Publication1,
         category: "book"
     },
     {
         id: 2,
         name: "Morning Prayers",
-        image: "/placeholder.svg?height=400&width=400&text=Morning+Prayers",
+        image: Publication2,
         category: "kirtan"
     },
     {
         id: 3,
         name: "Spiritual Discourse",
-        image: "/placeholder.svg?height=400&width=400&text=Spiritual+Discourse",
+        image: Publication3,
         category: "katha"
     },
     {
         id: 4,
         name: "Temple Wallpaper",
-        image: "/placeholder.svg?height=400&width=400&text=Temple+Wallpaper",
+        image: Publication4,
         category: "wallpaper"
     },
     {
         id: 5,
         name: "Devotional Songs",
-        image: "/placeholder.svg?height=400&width=400&text=Devotional+Songs",
+        image: Publication5,
         category: "video"
     },
     {
         id: 6,
         name: "Sacred Texts",
-        image: "/placeholder.svg?height=400&width=400&text=Sacred+Texts",
+        image: Publication6,
         category: "book"
     },
 ]
@@ -131,12 +137,12 @@ export default function PublicationsPage() {
                                 </Button>
                             ))}
                         </div>
-                        <div className="flex items-center gap-4 w-full md:w-auto">
+                        <div className="flex items-center gap-6 w-full md:w-auto ">
                             <Select
                                 value={selectedSort}
                                 onValueChange={setSelectedSort}
                             >
-                                <SelectTrigger className="w-[120px]">
+                                <SelectTrigger className="w-[120px] mx-4 ms-3">
                                     <SelectValue placeholder="ALL" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -182,7 +188,7 @@ export default function PublicationsPage() {
                                                     alt={publication.name}
                                                     width={400}
                                                     height={400}
-                                                    className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+                                                    className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105   object-center object-top"
                                                 />
                                                 <div className={`absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
                                             </div>

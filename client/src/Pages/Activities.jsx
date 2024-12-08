@@ -9,21 +9,24 @@ import { Footer } from '../components/Footer'
 // import { colors } from '../../utils/colors'
 import { Image } from '../components/ui/Image'
 import About2 from '../images/AboutUsImage/About2.jpg';
+import Activites1 from '../images/Activites/Spiritual.jpg';
+import Activites2 from '../images/Activites/Cluture.jpg';
+import Activites3  from '../images/Activites/Eductional.jpg';
 
 const activities = [
   {
     name: "Spiritual Activities",
-    image: "/placeholder.svg?height=400&width=400&text=Spiritual+Activities",
+    image: Activites1,
     link: "#spiritual"
   },
   {
     name: "Cultural Activities",
-    image: "/placeholder.svg?height=400&width=400&text=Cultural+Activities",
+    image: Activites2,
     link: "#cultural"
   },
   {
     name: "Educational Activities",
-    image: "/placeholder.svg?height=400&width=400&text=Educational+Activities",
+    image: Activites3,
     link: "#educational"
   }
 ]

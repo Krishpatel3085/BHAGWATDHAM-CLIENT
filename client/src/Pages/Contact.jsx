@@ -21,7 +21,7 @@ import About2 from '../images/AboutUsImage/About2.jpg';
 
 
 export default function ContactPage() {
-//   const [email, setEmail] = useState('')
+  //   const [email, setEmail] = useState('')
   const [newsletterEmail, setNewsletterEmail] = useState('')
 
   const handleSubmit = (e) => {
@@ -37,7 +37,7 @@ export default function ContactPage() {
   return (
     <div className='min-h-screen bg-background'>
       <Header />
-      
+
       {/* Hero Section with Breadcrumb */}
       <section className="relative h-[300px] overflow-hidden">
         <Image
@@ -48,14 +48,14 @@ export default function ContactPage() {
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
-          <motion.div 
+          <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             className="text-white text-center"
           >
             <div className="flex items-center justify-center space-x-2 text-sm mb-4">
-              <a 
-                href="/" 
+              <a
+                href="/"
                 className='hover:text-accent transition-colors'
               >
                 HOME
@@ -99,7 +99,7 @@ export default function ContactPage() {
                     <Phone className="w-8 h-8 mx-auto mb-4" />
                     <h3 className="font-bold mb-2">CALL US NOW</h3>
                     <p>PHONE NUMBER:</p>
-                    <a href="tel:+919825803174" className="hover:underline">+91 98258 03174</a>
+                    <a href="tel:+919825803174" className="hover:underline">+91 94276 64978</a>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -142,7 +142,7 @@ export default function ContactPage() {
                   placeholder="MESSAGE"
                   className='bg-white border-primary min-h-[150px]'
                 />
-                <Button 
+                <Button
                   type="submit"
                   className='bg-primary text-white hover:bg-secondary w-full'
                 >
@@ -164,15 +164,16 @@ export default function ContactPage() {
               animate={{ opacity: 1, x: 0 }}
               className="h-[400px] bg-gray-200 rounded-lg overflow-hidden"
             >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3666.0233520000003!2d72.9918!3d23.2345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDE0JzA0LjIiTiA3MsKwNTknMzAuNSJF!5e0!3m2!1sen!2sin!4v1638440000000!5m2!1sen!2sin"
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.7844793667646!2d71.44225547541035!3d22.99785657919122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39596242f2783afb%3A0x54bc07c1444f2df5!2sBhagwatdham%20Gurukul%20Dhrangadhra!5e1!3m2!1sen!2sin!4v1733635807419!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
-                allowFullScreen
+                allowfullscreen
                 loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
                 title='map'
-              />
+                ></iframe>
             </motion.div>
 
             {/* Visit Us */}
@@ -227,7 +228,7 @@ export default function ContactPage() {
                 onChange={(e) => setNewsletterEmail(e.target.value)}
                 className="bg-white"
               />
-              <Button 
+              <Button
                 type="submit"
                 className='bg-accent text-text hover:bg-white'
               >
