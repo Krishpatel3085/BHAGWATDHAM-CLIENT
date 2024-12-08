@@ -23,7 +23,7 @@ const socialLinks = [
   { icon: Twitter, href: "#", label: "Twitter" },
   { icon: Youtube, href: "https://www.youtube.com/c/BhagwatdhamGurukulDhrangadhra", label: "Youtube" },
   { icon: Instagram, href: "https://www.instagram.com/bhagwatdham_gurukul_official/", label: "Instagram" },
-  { icon: Send, href: "#", label: "Telegram" },
+  { icon: Send, href: "https://t.me/bhagwatdhamgurukuldhrangadhra", label: "Telegram" },
   { icon: Music, href: "#", label: "Spotify" },
 ]
 
@@ -55,7 +55,7 @@ export function Footer() {
               <div className="flex items-center space-x-2 text-gray-600">
                 <Phone className="w-4 h-4" />
                 <a href="tel:+919825803174" className="hover:text-primary">
-                  +91 98258 03174
+                  +91 94276 64978
                 </a>
               </div>
               <div className="flex items-center space-x-2 text-gray-600">

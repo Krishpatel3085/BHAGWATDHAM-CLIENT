@@ -106,19 +106,25 @@ export default function AboutPage() {
                             <h2 className="text-3xl font-bold text-white mb-6">HISTORY</h2>
                             <div className="prose prose-lg text-white">
                                 <p>
-                                    The history of our temple dates back to the time when Lord Swaminarayan himself blessed this land.
-                                    Our institution carries forward his legacy of spiritual enlightenment and moral education.
-                                </p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It was a very holy day of March 9, 1997 Sunday, 10.15 am, the place of today's Sanskar Dham Gurukul and the place were full of the footfall of many saints and devotees, who were eager to sit on the lap of the almighty Lord, Purushottam Narayan Lord Shri Swaminarayan.
+                                </p> <br />
                                 <p>
-                                    Through decades of dedicated service, we have maintained the pristine traditions while adapting to
-                                    modern educational needs, creating a unique blend of spiritual and academic excellence.
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shri Harilal Ramjibhai Thakkar (Bachu Bapa) (a native of Ramgadh, resident of: Dhrangadhra), who was the owner of the land, was sitting beneath the tree of Rayan (yellow grapes) before H.H. Guruji; and both were in a deep discussion. The subject of their discussion was the seven-day Satsang-Shibir and its planning, to be held there. While talking, H.H. Swami Shir suddenly, by an inspiration of the Lord, said, “Bachu Bapa, this your garden… the land… can you give it to us for Gurukul?” Before Swami concludes his sentence, Bachu Bapa exclaimed with joy, saying, “Swami, let it be offered to the Lord Swaminarayan… You won't believe, last night I had dreamt of Lord Maharaj, who took my word and told me: 'see, if Swami asks you for the land to build a Gurukul, do not hesitate even for a moment, and do offer the whole…!' I gave Him a word in the dream…! Swami, you have kept my word. The land is donated from this very moment. Not even a handful of soil I can take from this land from today…!”
                                 </p>
+                                <br />
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This was the very short and sweet 'land-acquisition' process for the Gurukul, which was fully inspired by Shri Hari. The place then was converted into a Gurukul to inculcate a great Sanskars in our future generations of India from 10/06/2001, morning 10.30, where cultivation of wheat, sorghum, brinjal, cotton and rice etc. was done previously. A billion salutes to Shri Bachu Bapa.
+                                </p> <br />
+                                <p>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swami asked him, after he saw Bachu Bapa in a thoughtful gesture,“What are you thinking of, Bachu Bhai?” Bachu Bapa replied “I have some conditions in offering this land to you…”
+                                    “Just do not hesitate, please, speak out freely…” Swami said.
+                                </p> 
                             </div>
                         </motion.div>
                         <div className="space-y-6">
                             {[
-                                { title: 'LORD SWAMINARAYAN',image: History },
-                                { title: 'THE FOUNDER' , image: Gallery8 }
+                                { title: 'LORD SWAMINARAYAN', image: History },
+                                { title: 'THE FOUNDER', image: Gallery8 }
                             ].map((history, index) => (
                                 <motion.div
                                     key={index}
