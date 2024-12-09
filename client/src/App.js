@@ -6,6 +6,7 @@ import School from './Pages/School.jsx';
 import ActivitiesPage from './Pages/Activities.jsx';
 import PublicationsPage from './Pages/Publications.jsx';
 import ContactPage from './Pages/Contact.jsx';
+import GalleryPage from './Pages/Gallery.jsx';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/school' element={<School />} />
-        <Route path='/gallery' element={<School />} />
+        <Route path='/gallery' element={<GalleryPage />} />
         <Route path='/activities' element={<ActivitiesPage />} />
         <Route path='/Publications' element={<PublicationsPage />} />
         <Route path='/about-us' element={<About />} />
