@@ -8,23 +8,24 @@ import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import { Image } from '../components/ui/Image'
 import About2 from '../images/AboutUsImage/About2.jpg';
+import Logo from '../images/lodermain.png';
 
 // import { colors } from '../../utils/colors'
 
 const galleries = [
     {
         year: 2024,
-        image: "/placeholder.svg?height=400&width=400&text=Gallery+2024",
+        image: Logo,
         count: 42
     },
     {
         year: 2023,
-        image: "/placeholder.svg?height=400&width=400&text=Gallery+2023",
+        image: Logo,
         count: 156
     },
     {
         year: 2022,
-        image: "/placeholder.svg?height=400&width=400&text=Gallery+2022",
+        image: Logo,
         count: 89
     }
 ]
