@@ -36,9 +36,9 @@ const getAdmin = async (req, res) => {
 const loginAdmin = async (req, res) => {
     try {
 
-        const { identifier, password } = req.body;
+        const { email, password } = req.body;
         const user = await Users_Admin.findOne({
-            $or: [{ email: identifier }, { username: identifier }],
+            $or: [{ email: email }, { username: password }],
         });
         if (!user) {
             return res.status(404).json({ message: "User not found" });
