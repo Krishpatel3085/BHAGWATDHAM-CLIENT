@@ -1,19 +1,20 @@
-const Users_Admin = require("../Model/Admin");
+const Users_Admin = require("../Model/user");
 const jwt = require("jsonwebtoken");
 
 
 // Create User
 const createAdmin = async (req, res) => {
     try {
-        const { email, password, username } = req.body;
-        if (!email || !password || !username) {
+        const { email, password, username, role } = req.body;
+        console.log("Testing Data Get", req.body);
+        if (!email || !password || !username || !role) {
             return res.status(400).json({ message: "All fields are required" });
         }
         const existingUser = await Users_Admin.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: "Email already in use" });
         }
-        await Users_Admin.create({ email, password, username });
+        await Users_Admin.create({ email, password, username, role });
         res.status(201).json({ message: "User created successfully" });
     } catch (error) {
         console.error("Can't Create User ", error);
@@ -31,7 +32,7 @@ const getAdmin = async (req, res) => {
     }
 };
 
-// Login User and Generate Token
+// // Login User and Generate Token
 const loginAdmin = async (req, res) => {
     try {
 
@@ -70,4 +71,4 @@ const loginAdmin = async (req, res) => {
 };
 
 
-module.exports = { getAdmin, loginAdmin, createAdmin };
+module.exports = { createAdmin, getAdmin, loginAdmin };

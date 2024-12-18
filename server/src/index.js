@@ -1,15 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { admin_router } = require("./Routes/admin");
 const dotenv = require('dotenv');
+const cors = require("cors");
 
 const app = express()
+app.use(express.json())
+app.use(cors());
 dotenv.config()
 
-app.get("/test", (req, res) => {
-    res.json({
-        msg: "server is working"
-    }).status(200)
-})
+app.use('/user', admin_router)
 
 app.listen(process.env.PORT, async () => {
     await mongoose.connect(process.env.MONGO_URL)
