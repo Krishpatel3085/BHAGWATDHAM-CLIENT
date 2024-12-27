@@ -42,6 +42,7 @@ const createAdmin = async (req, res) => {
 const updateUserStatus = async (req, res) => {
     try {
         const { userId, status } = req.body;
+        console.log(req.body)
 
         // Validate status
         const validStatuses = ['Approved', 'Rejected'];
