@@ -13,8 +13,13 @@ const Users_Admin = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['Student', 'Teacher'],  
+        enum: ['Student', 'Teacher'],
     },
-})
+    status: {
+        type: String,
+        enum: ['Pending', 'Approved', 'Rejected'],
+        default: 'Pending', // Default to Pending
+    },
+}, { timestamps: true });
 
 module.exports = mongoose.model('Users_Admin', Users_Admin)
