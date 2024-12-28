@@ -102,8 +102,6 @@ const loginAdmin = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        console.log("data")
-
         const tokenData = {
             id: user._id,
             username: user.username,
