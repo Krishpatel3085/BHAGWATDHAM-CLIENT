@@ -35,16 +35,17 @@ const getAllEvents = async (req, res) => {
     }
 }
 
-// get update events
-// const getUpdateEvent = async (req, res) => {
-//     try {
-//         const event = await EventSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//         if (!event) return res.status(404).json({ message: "Event not found" });
-//         res.json(event);
-//     } catch (error) {
-//         res.status(400).json({ message: error.message })
-//     }
-// }
+//  update events
+const UpdateEvent = async (req, res) => {
+    try {
+        const event = await EventSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!event) return res.status(404).json({ message: "Event not found" });
+        res.json(event);
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}
+
 
 // Delete event
 const deleteEvent = async (req, res) => {
@@ -57,4 +58,4 @@ const deleteEvent = async (req, res) => {
     }
 }
 
-module.exports = { createEvent, getAllEvents, deleteEvent };
+module.exports = { createEvent, getAllEvents, deleteEvent, UpdateEvent };
