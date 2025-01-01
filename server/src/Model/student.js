@@ -2,18 +2,17 @@ const mongoose = require('mongoose');
 
 // create teacher schema
 
-const teacherSchema = new mongoose.Schema({
+const studentSchema = new mongoose.Schema({
 
     name: {
         type: String,
         required: true
     },
-    employeeNo: {
-        type: Number,
-        unique: true,
+    ParentsName: {
+        type: String,
         required: true
     },
-    salary: {
+    ParentsMO: {
         type: Number,
         required: true
     },
@@ -25,14 +24,14 @@ const teacherSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    subjects: [{
+    Fees: {
         type: String,
-        ref: 'Subject'
-    }],
+        required: true
+    },
     grade: {
         type: String,
         required: true
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Teacher', teacherSchema);
+module.exports = mongoose.model('Student', studentSchema);
