@@ -1,6 +1,6 @@
 const Users_Admin = require("../Model/user");
 const jwt = require("jsonwebtoken");
-
+const teacherSchema = require("../Model/teacher");
 
 // Create User
 const createAdmin = async (req, res) => {
@@ -28,6 +28,16 @@ const createAdmin = async (req, res) => {
             role,
             status: "Pending"
         });
+
+        if (role === "Teacher") {
+            teacherSchema.create({ Teacher: newUser })
+        }
+        // condition role == 'Student'
+        // Strudent.create({user: newUser})
+
+        // condition role == 'Teacher'
+        // Teacher.create({user: newUser})
+
 
         res.status(201).json({ message: "Account created. Awaiting approval from principal.", user: newUser });
 
@@ -76,6 +86,7 @@ const getAdmin = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // // Login User and Generate Token
 const loginAdmin = async (req, res) => {

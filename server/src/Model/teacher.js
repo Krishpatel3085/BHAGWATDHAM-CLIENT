@@ -6,24 +6,24 @@ const teacherSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        // required: true
     },
     employeeNo: {
         type: Number,
         unique: true,
-        required: true
+        // required: true
     },
     salary: {
-        type: Number,
-        required: true
+        type: Number,   
+        // required: true
     },
     address: {
         type: String,
-        required: true
+        // required: true
     },
     age: {
         type: Number,
-        required: true
+        // required: true
     },
     subjects: [{
         type: String,
@@ -31,8 +31,13 @@ const teacherSchema = new mongoose.Schema({
     }],
     grade: {
         type: String,
-        required: true
+        // required: true
+    },
+    Teacher:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Teacher', teacherSchema);
