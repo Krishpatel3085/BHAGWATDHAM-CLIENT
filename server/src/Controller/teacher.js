@@ -53,3 +53,18 @@ const deleteTeacher = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 }
+
+// getTeacher by id
+const getTeacherById = async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        const teacher = await teacherSchema.find({ Teacher: _id });
+        console.log("check", teacher)
+        if (!teacher) return res.status(404).json({ message: "Teacher not found" });
+        res.json(teacher);
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+};
+
+module.exports = { getTeacherById, createTeacher, updateTeacher, deleteTeacher };
