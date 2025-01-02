@@ -4,6 +4,7 @@ const { admin_router } = require("./Routes/admin");
 const { event_router } = require("./Routes/event");
 const { exam_router } = require("./Routes/exam");
 const { teacher_router } = require("./Routes/teacher");
+const { student_router } = require("./Routes/student");
 const dotenv = require('dotenv');
 const cors = require("cors");
 
@@ -16,6 +17,7 @@ app.use('/user', admin_router)
 app.use('/Event', event_router)
 app.use('/Exam', exam_router)
 app.use('/teacher', teacher_router)
+app.use('/student', student_router)
 
 app.listen(process.env.PORT, async () => {
     await mongoose.connect(process.env.MONGO_URL)
