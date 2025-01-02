@@ -21,6 +21,7 @@ const createAdmin = async (req, res) => {
             return res.status(400).json({ message: "Email already in use" });
         }
 
+        // Create the new user
         const newUser = await Users_Admin.create({
             email,
             password,
@@ -29,24 +30,36 @@ const createAdmin = async (req, res) => {
             status: "Pending"
         });
 
+        // Generate unique employeeNo
+        let newEmpNo;
         if (role === "Teacher") {
-            teacherSchema.create({ Teacher: newUser })
+            const lastTeacher = await teacherSchema.findOne().sort({ createdAt: -1 });
+            const lastEmpNo = lastTeacher?.employeeNo || "EMP0000"; // Default if no teachers exist
+            newEmpNo = `EMP${String(parseInt(lastEmpNo.slice(3)) + 1).padStart(4, '0')}`;
+
+            try {
+                // Create teacher entry in the teacher schema
+                await teacherSchema.create({ Teacher: newUser._id, employeeNo: newEmpNo });
+            } catch (err) {
+                console.error("Error creating teacher entry:", err);
+                // Rollback the created user if the teacher entry fails
+                await Users_Admin.findByIdAndDelete(newUser._id);
+                return res.status(500).json({ message: "Failed to create teacher profile" });
+            }
         }
-        // condition role == 'Student'
-        // Strudent.create({user: newUser})
 
-        // condition role == 'Teacher'
-        // Teacher.create({user: newUser})
-
-
-        res.status(201).json({ message: "Account created. Awaiting approval from principal.", user: newUser });
+        res.status(201).json({ 
+            message: "Account created. Awaiting approval from principal.", 
+            user: newUser,
+            employeeNo: newEmpNo || null // Include employeeNo for teachers
+        });
 
     } catch (error) {
-
         console.error("Error creating user:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 // Update User Status
 const updateUserStatus = async (req, res) => {

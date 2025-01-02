@@ -7,6 +7,6 @@ const teacher_router = express.Router()
 teacher_router.get('/getTeacher/:id', getTeacherById)
 teacher_router.post('/CreateTeacher', createTeacher)
 teacher_router.delete('/deleteTeacher/:id', deleteTeacher)
-teacher_router.put('/UpdateTeacher/:id', updateTeacher)
+teacher_router.put('/UpdateTeacher', updateTeacher)
 
 module.exports = { teacher_router };

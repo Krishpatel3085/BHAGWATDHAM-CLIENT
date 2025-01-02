@@ -9,7 +9,7 @@ const teacherSchema = new mongoose.Schema({
         // required: true
     },
     employeeNo: {
-        type: Number,
+        type: String,
         unique: true,
         // required: true
     },
@@ -25,10 +25,10 @@ const teacherSchema = new mongoose.Schema({
         type: Number,
         // required: true
     },
-    subjects: [{
+    subject: {
         type: String,
         ref: 'Subject'
-    }],
+    },
     grade: {
         type: String,
         // required: true
