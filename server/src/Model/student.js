@@ -6,31 +6,39 @@ const studentSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        required: true
+        // required: true
     },
-    ParentsName: {
+    studentId: {
         type: String,
-        required: true
+        // required: true
     },
-    ParentsMO: {
+    parentName: {
+        type: String,
+        // required: true
+    },
+    parentPhone: {
         type: Number,
-        required: true
+        // required: true
     },
     address: {
         type: String,
-        required: true
+        // required: true
     },
     age: {
         type: Number,
-        required: true
+        // required: true
     },
     Fees: {
         type: String,
-        required: true
+        // required: true
     },
     grade: {
         type: String,
-        required: true
+        // required: true
+    },
+    Student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 }, { timestamps: true });
 

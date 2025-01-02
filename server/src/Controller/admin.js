@@ -1,6 +1,7 @@
 const Users_Admin = require("../Model/user");
 const jwt = require("jsonwebtoken");
 const teacherSchema = require("../Model/teacher");
+const studentSchema = require("../Model/student");
 
 // Create User
 const createAdmin = async (req, res) => {
@@ -29,8 +30,7 @@ const createAdmin = async (req, res) => {
             role,
             status: "Pending"
         });
-
-        // Generate unique employeeNo
+        
         let newEmpNo;
         if (role === "Teacher") {
             const lastTeacher = await teacherSchema.findOne().sort({ createdAt: -1 });
@@ -38,20 +38,34 @@ const createAdmin = async (req, res) => {
             newEmpNo = `EMP${String(parseInt(lastEmpNo.slice(3)) + 1).padStart(4, '0')}`;
 
             try {
-                // Create teacher entry in the teacher schema
                 await teacherSchema.create({ Teacher: newUser._id, employeeNo: newEmpNo });
             } catch (err) {
                 console.error("Error creating teacher entry:", err);
-                // Rollback the created user if the teacher entry fails
                 await Users_Admin.findByIdAndDelete(newUser._id);
                 return res.status(500).json({ message: "Failed to create teacher profile" });
             }
         }
 
-        res.status(201).json({ 
-            message: "Account created. Awaiting approval from principal.", 
+
+        let newStuNo;
+        if (role === "Student") {
+            try {
+                const lastStusdent = await studentSchema.findOne().sort({ createdAt: -1 });
+                const lastStuNo = lastStusdent?.newStuNo || "STU0000"; // Default if no students exist
+                newStuNo = `STU${String(parseInt(lastStuNo.slice(3)) + 1).padStart(4, '0')}`;
+        
+                await studentSchema.create({ Student: newUser._id, studentId: newStuNo });
+            } catch (err) {
+                console.error("Error creating student entry:", err);
+                await Users_Admin.findByIdAndDelete(newUser._id);
+                return res.status(500).json({ message: "Failed to create student profile" });
+            }
+        }
+        res.status(201).json({
+            message: "Account created. Awaiting approval from principal.",
             user: newUser,
-            employeeNo: newEmpNo || null // Include employeeNo for teachers
+            StudentId: newStuNo || null,
+            employeeNo: newEmpNo || null
         });
 
     } catch (error) {
