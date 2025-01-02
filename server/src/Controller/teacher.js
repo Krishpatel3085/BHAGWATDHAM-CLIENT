@@ -30,18 +30,33 @@ const createTeacher = async (req, res) => {
 // Update
 const updateTeacher = async (req, res) => {
     try {
-        const { id: _id } = req.params;
-        const { name, employeeNo, salary, address, age, subject, grade } = req.body;
 
-        if (!name || !employeeNo || !address || !age || !subject || !grade) {
+        const { employeeNo, name, salary, address, age, subject, grade } = req.body;
+        console.log(employeeNo)
+        // Validation: Ensure all required fields are provided
+        if (!employeeNo || !name || !address || !age || !subject || !grade) {
             return res.status(400).json({ message: "All fields are required" });
-        };
-        const updatedTeacher = await teacherSchema.findByIdAndUpdate(_id, req.body, { new: true });
-        res.status(200).json({ message: "Teacher updated successfully", updatedTeacher });
+        }
+
+        const updatedTeacher = await teacherSchema.findOneAndUpdate(
+            { employeeNo },
+            { name, salary, address, age, subject, grade },
+            { new: true }
+        );
+
+        if (!updatedTeacher) {
+            return res.status(404).json({ message: "Teacher not found" });
+        }
+
+        res.status(200).json({
+            message: "Teacher updated successfully",
+            updatedTeacher,
+        });
     } catch (error) {
-        res.status(400).json({ message: error.message })
+        res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 // Delete
 const deleteTeacher = async (req, res) => {
@@ -58,10 +73,9 @@ const deleteTeacher = async (req, res) => {
 const getTeacherById = async (req, res) => {
     try {
         const { id: _id } = req.params;
-        const teacher = await teacherSchema.find({ Teacher: _id });
+        const teacher = await teacherSchema.findOne({ Teacher: _id });
         console.log("check", teacher)
-        if (!teacher) return res.status(404).json({ message: "Teacher not found" });
-        res.json(teacher);
+        res.status(200).json({ Message: "Teacher found", teacher });
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
