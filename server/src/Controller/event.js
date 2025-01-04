@@ -29,7 +29,7 @@ const createEvent = async (req, res) => {
 const getAllEvents = async (req, res) => {
     try {
         const events = await EventSchema.find();
-        res.json(events);
+        res.status(200).json({ Message: "Teachers found", events });
     } catch (error) {
         res.status(400).json({ message: error.message })
     }

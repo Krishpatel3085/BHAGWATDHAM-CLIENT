@@ -81,4 +81,14 @@ const getTeacherById = async (req, res) => {
     }
 };
 
-module.exports = { getTeacherById, createTeacher, updateTeacher, deleteTeacher };
+// get all teachers
+const getAllTeachers = async (req, res) => {
+    try {
+        const teachers = await teacherSchema.find();
+        res.status(200).json({ Message: "Teachers found", teachers });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachers };
