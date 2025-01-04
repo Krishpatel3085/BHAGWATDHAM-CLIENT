@@ -49,7 +49,7 @@ const updateStudent = async (req, res) => {
     try {
 
         const { name, parentName, parentPhone, address, age, grade, Fees, studentId } = req.body;
-        console.log("Student date",req.body);
+        console.log("Student date", req.body);
         if (!name || !parentName || !parentPhone || !age || !grade || !address) {
             return res.status(400).json({ message: "All fields are required" });
         };
@@ -92,4 +92,14 @@ const getStudentById = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 };
-module.exports = { createStudent, updateStudent, deleteStudent,getStudentById };
+
+// Get all students
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await studentSchema.find();
+        res.status(200).json({ message: "All students", students });
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+};
+module.exports = { createStudent, updateStudent, deleteStudent, getStudentById,getAllStudents };

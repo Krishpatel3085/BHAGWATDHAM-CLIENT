@@ -36,7 +36,7 @@ const createExam = async (req, res) => {
 const getAllExam = async (req, res) => {
     try {
         const exams = await ExamSchema.find();
-        res.json(exams);
+        res.status(200).json({ Message: "exams found", exams });
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
