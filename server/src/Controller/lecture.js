@@ -3,30 +3,52 @@ const lectureSchema = require('../Model/lecture')
 
 const createLecture = async (req, res) => {
     try {
-        const { dayOfWeek, subject, startTime, endTime, teacherName, grade, lectureNo, id } = req.body
+        const { dayOfWeek, subject, startTime, endTime, teacherName, grade, lectureNo, id } = req.body;
 
         console.log(req.body);
+
+        // Validate the required fields
         if (!grade || !endTime || !startTime || !dayOfWeek || !subject || !teacherName) {
-            return res.status(400).json({ message: 'Please provide all the required fields' })
+            return res.status(400).json({ message: 'Please provide all the required fields' });
         }
-        const lecture = await lectureSchema.create({
-            grade,
-            startTime,
-            endTime,
-            dayOfWeek,
-            subject,
-            teacherName,
-            lectureNo,
-            id
-        })
-        res.status(201).json({ mesaage: "Event created successfully", lecture });
-        console.log('Lecture added successfully', lecture)
 
+        // Check if a lecture with the same dayOfWeek, startTime, and grade already exists
+        const existingLecture = await lectureSchema.findOne({ dayOfWeek, startTime, grade });
+
+        if (existingLecture) {
+            // Update the existing lecture
+            existingLecture.subject = subject;
+            existingLecture.endTime = endTime;
+            existingLecture.teacherName = teacherName;
+            existingLecture.lectureNo = lectureNo;
+            existingLecture.id = id;
+
+            await existingLecture.save();
+
+            res.status(200).json({ message: "Lecture updated successfully", lecture: existingLecture });
+            console.log('Lecture updated successfully', existingLecture);
+        } else {
+            // Create a new lecture if no existing one matches
+            const newLecture = await lectureSchema.create({
+                grade,
+                startTime,
+                endTime,
+                dayOfWeek,
+                subject,
+                teacherName,
+                lectureNo,
+                id
+            });
+
+            res.status(201).json({ message: "Lecture created successfully", lecture: newLecture });
+            console.log('Lecture added successfully', newLecture);
+        }
     } catch (error) {
-        res.status(400).json({ message: error.message })
-
+        console.error('Error creating lecture:', error.message);
+        res.status(400).json({ message: error.message });
     }
 };
+
 // GetLecture
 const getLectures = async (req, res) => {
     try {
