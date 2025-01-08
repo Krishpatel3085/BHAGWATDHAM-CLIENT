@@ -1,6 +1,6 @@
 const express = require('express');
 const { createLecture, getLectures, updateLecture, deleteLecture } = require('../Controller/lecture');
-const router = express.Router();
+
 
 const lecture_router = express.Router()
 
