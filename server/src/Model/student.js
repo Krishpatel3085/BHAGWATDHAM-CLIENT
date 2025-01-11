@@ -39,6 +39,24 @@ const studentSchema = new mongoose.Schema({
     Student: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    TotalAmount: {
+        type: Number
+        // required: true
+    },
+    PaidAmount: {
+        type: Number,
+        defaultValue: 0,
+        // required: true
+    },
+    status: {
+        type: String,
+    },
+    dueDate:{
+        type:String
+    },
+    paymentMethod:{
+        type:String
     }
 }, { timestamps: true });
 

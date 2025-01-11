@@ -4,46 +4,41 @@ const studentSchema = require('../Model/student')
 // Create
 const createStudent = async (req, res) => {
     try {
-        const { name, ParentsName, ParentsMO, address, age, grade, Fees } = req.body;
+        const { name, ParentsName, ParentsMO, address, age, grade } = req.body;
 
         if (!name || !ParentsName || !ParentsMO || !age || !grade || !address) {
             return res.status(400).json({ message: "All fields are required" });
         };
 
+
+        if (!Fees) {
+            return res.status(400).json({ message: "Invalid grade, fees not found" });
+        }
+
+
+        // Create the new student with the assigned fees
         const newStudent = new studentSchema({
             name,
             ParentsName,
             ParentsMO,
-            Fees,
+            TotalAmount,
+            PaidAmount,
             address,
             age,
             grade
         });
 
-        res.status(201).json({ mesaage: "Student created successfully", newStudent });
+        await newStudent.save();
+
+        res.status(201).json({ message: "Student created successfully", newStudent });
 
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
-}
+};
+
 
 // Update
-// const updateStudent = async (req, res) => {
-//     try {
-//         const { id: _id } = req.params;
-//         const { name, ParentsName, ParentsMO, address, age, grade, Fees } = req.body;
-
-//         if (!name || !ParentsName || !ParentsMO || !age || !grade || !address) {
-//             return res.status(400).json({ message: "All fields are required" });
-//         };
-
-//         const updatedStudent = await studentSchema.findByIdAndUpdate(_id, req.body, { new: true });
-//         res.status(200).json({ message: "Student updated successfully", updatedStudent });
-//     } catch (error) {
-//         res.status(400).json({ message: error.message })
-//     }
-// }
-
 
 const updateStudent = async (req, res) => {
     try {
@@ -53,9 +48,32 @@ const updateStudent = async (req, res) => {
         if (!name || !parentName || !parentPhone || !age || !grade || !address) {
             return res.status(400).json({ message: "All fields are required" });
         };
+
+        const gradeFeesMap = {
+            '1st': 1000,
+            '2nd': 1200,
+            '3rd': 1400,
+            '4th': 1600,
+            '5th': 1800,
+            '6th': 2000,
+            '7th': 2200,
+            '8th': 2400,
+            '9th': 2600,
+            '10th': 2800,
+            '11th commerce': 3200,
+            '11th arts': 3000,
+            '11th science': 3400,
+            '12th commerce': 3500,
+            '12th arts': 3300,
+            '12th science': 3800,
+        };
+
+        // Fetch the fee based on the grade
+        const TotalAmount = gradeFeesMap[grade];
+
         const updatedStudent = await studentSchema.findOneAndUpdate(
             { studentId },
-            { name, parentName, address, age, parentPhone, grade },
+            { name, parentName, address, age, parentPhone, grade, TotalAmount, PaidAmount:0 },
             { new: true }
         );
 
@@ -102,4 +120,4 @@ const getAllStudents = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 };
-module.exports = { createStudent, updateStudent, deleteStudent, getStudentById,getAllStudents };
+module.exports = { createStudent, updateStudent, deleteStudent, getStudentById, getAllStudents };
