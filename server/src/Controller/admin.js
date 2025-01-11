@@ -30,7 +30,7 @@ const createAdmin = async (req, res) => {
             role,
             status: "Pending"
         });
-        
+
         let newEmpNo;
         if (role === "Teacher") {
             const lastTeacher = await teacherSchema.findOne().sort({ createdAt: -1 });
@@ -50,10 +50,12 @@ const createAdmin = async (req, res) => {
         let newStuNo;
         if (role === "Student") {
             try {
-                const lastStusdent = await studentSchema.findOne().sort({ createdAt: -1 });
-                const lastStuNo = lastStusdent?.newStuNo || "STU0000"; // Default if no students exist
+                // Ensure unique student ID by checking for the highest existing student ID
+                const lastStudent = await studentSchema.findOne().sort({ createdAt: -1 });
+                const lastStuNo = lastStudent?.studentId || "STU0000"; // Default if no students exist
                 newStuNo = `STU${String(parseInt(lastStuNo.slice(3)) + 1).padStart(4, '0')}`;
-        
+
+                // Create a new student entry with a unique student ID
                 await studentSchema.create({ Student: newUser._id, studentId: newStuNo });
             } catch (err) {
                 console.error("Error creating student entry:", err);

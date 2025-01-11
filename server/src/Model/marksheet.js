@@ -7,7 +7,7 @@ const MarksheetSchema = new mongoose.Schema({
         required: true
     },
     rollNo: {
-        type: Date,
+        type: Number,
         required: true
     },
     Class: {
