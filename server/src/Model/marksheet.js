@@ -7,7 +7,7 @@ const MarksheetSchema = new mongoose.Schema({
         required: true
     },
     rollNo: {
-        type: Number,
+        type: String,
         required: true
     },
     Class: {
@@ -35,6 +35,10 @@ const MarksheetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    Student: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users_Admin'
+    }
 
 }, { timestamps: true });
 

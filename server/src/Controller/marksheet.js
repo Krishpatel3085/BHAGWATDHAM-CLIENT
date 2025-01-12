@@ -1,9 +1,18 @@
 const MarksheetSchema = require('../Model/marksheet')
+const StudentSchema = require('../Model/student')
 
 // Create a Marksheet
 const CreateMarksheet = async (req, res) => {
     try {
-        const { studentName, rollNo, Class, examType, totalMarks, percentage, result, name, marks, grade, subjects } = req.body;
+        const { studentName, rollNo, Class, examType, totalMarks, percentage, result, subjects } = req.body;
+        console.log("Marksheet", req.body)
+        const Student = req.user["id"]
+
+        const studentID = await StudentSchema.findOne({ studentId: rollNo, name: studentName });
+        if (!studentID) {
+            return res.status(404).json({ error: 'Student not found' });
+        }
+
         const newMarksheet = await MarksheetSchema.create({
             studentName,
             rollNo,
@@ -12,7 +21,8 @@ const CreateMarksheet = async (req, res) => {
             totalMarks,
             percentage,
             result,
-            subjects: subjects
+            subjects: subjects,
+            Student
         });
 
         res.status(201).json({ Message: "Marksheet Created", newMarksheet })
@@ -28,6 +38,21 @@ const GetAllMarksheets = async (req, res) => {
     try {
         const marksheets = await MarksheetSchema.find();
         res.status(200).json({ marksheets })
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
+
+// Get Marksheet by ID
+const GetMarksheetById = async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        console.log(_id)
+        const marksheet = await MarksheetSchema.findOne({ Student: _id });
+        if (!marksheet) {
+            return res.status(404).json({ error: 'Marksheet not found' });
+        }
+        res.status(200).json({ marksheet })
     } catch (error) {
         res.status(400).json({ error: error.message })
     }
@@ -58,4 +83,4 @@ const DeleteMarksheet = async (req, res) => {
     }
 }
 
-module.exports = { CreateMarksheet, GetAllMarksheets, UpdateMarksheet, DeleteMarksheet };
+module.exports = { CreateMarksheet, GetAllMarksheets, UpdateMarksheet, DeleteMarksheet, GetMarksheetById };

@@ -4,7 +4,7 @@ const lectureSchema = require('../Model/lecture')
 const createLecture = async (req, res) => {
     try {
         const { dayOfWeek, subject, startTime, endTime, teacherName, grade, lectureNo, id } = req.body;
-
+        console.log("Get Lecture data", req.body);
         console.log(req.body);
 
         // Validate the required fields
