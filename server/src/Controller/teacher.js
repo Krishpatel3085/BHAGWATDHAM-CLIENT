@@ -27,20 +27,37 @@ const createTeacher = async (req, res) => {
     }
 }
 
-// Update
+// Update the teacher
+
 const updateTeacher = async (req, res) => {
     try {
+        const { employeeNo, name, salary, address, age, subject, grade, Bonus = 0, Deductions = 0 } = req.body;
 
-        const { employeeNo, name, salary, address, age, subject, grade } = req.body;
-        console.log(employeeNo)
+        console.log(employeeNo);
+        console.log(req.body);
+
         // Validation: Ensure all required fields are provided
         if (!employeeNo || !name || !address || !age || !subject || !grade) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
+        // Calculate NetPay
+        const NetPay = Number(salary) + Number(Bonus) - Number(Deductions);
+
+        // Update teacher record
         const updatedTeacher = await teacherSchema.findOneAndUpdate(
             { employeeNo },
-            { name, salary, address, age, subject, grade },
+            {
+                name,
+                salary,
+                address,
+                age,
+                subject,
+                grade,
+                Bonus,
+                Deductions,
+                NetPay,
+            },
             { new: true }
         );
 

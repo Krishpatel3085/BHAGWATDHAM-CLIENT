@@ -33,11 +33,11 @@ const createAdmin = async (req, res) => {
 
         let newEmpNo;
         if (role === "Teacher") {
-            const lastTeacher = await teacherSchema.findOne().sort({ createdAt: -1 });
-            const lastEmpNo = lastTeacher?.employeeNo || "EMP0000"; // Default if no teachers exist
-            newEmpNo = `EMP${String(parseInt(lastEmpNo.slice(3)) + 1).padStart(4, '0')}`;
-
             try {
+                const lastTeacher = await teacherSchema.findOne().sort({ createdAt: -1 });
+                const lastEmpNo = lastTeacher?.employeeNo || "EMP0000"; // Default if no teachers exist
+                newEmpNo = `EMP${String(parseInt(lastEmpNo.slice(3)) + 1).padStart(4, '0')}`;
+
                 await teacherSchema.create({ Teacher: newUser._id, employeeNo: newEmpNo });
             } catch (err) {
                 console.error("Error creating teacher entry:", err);
