@@ -14,7 +14,7 @@ const teacherSchema = new mongoose.Schema({
         // required: true
     },
     salary: {
-        type: Number,   
+        type: Number,
         // required: true
     },
     address: {
@@ -33,9 +33,24 @@ const teacherSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
-    Teacher:{
+    Teacher: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    bonus: {
+        type: Number,
+        default: 0
+    },
+    deductions: {
+        type: Number,
+        default: 0
+    },
+    NetPay: {
+        type: Number
+        // required: true
+    },
+    status: {
+        type: String,
     }
 
 }, { timestamps: true });
