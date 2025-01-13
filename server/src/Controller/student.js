@@ -10,11 +10,9 @@ const createStudent = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         };
 
-
         if (!Fees) {
             return res.status(400).json({ message: "Invalid grade, fees not found" });
         }
-
 
         // Create the new student with the assigned fees
         const newStudent = new studentSchema({
@@ -45,6 +43,7 @@ const updateStudent = async (req, res) => {
 
         const { name, parentName, parentPhone, address, age, grade, Fees, studentId } = req.body;
         console.log("Student date", req.body);
+
         if (!name || !parentName || !parentPhone || !age || !grade || !address) {
             return res.status(400).json({ message: "All fields are required" });
         };
@@ -70,10 +69,22 @@ const updateStudent = async (req, res) => {
 
         // Fetch the fee based on the grade
         const TotalAmount = gradeFeesMap[grade];
-
+        const PaidAmount = 0;
         const updatedStudent = await studentSchema.findOneAndUpdate(
             { studentId },
-            { name, parentName, address, age, parentPhone, grade, TotalAmount, PaidAmount:0 },
+            {
+                name,
+                parentName,
+                address,
+                age,
+                parentPhone,
+                grade,
+                Fees: {
+                    TotalAmount,
+                    PaidAmount,
+                },
+
+            },
             { new: true }
         );
 

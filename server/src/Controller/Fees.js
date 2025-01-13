@@ -2,7 +2,7 @@ const studentSchema = require('../Model/student')
 
 const updateStudentFees = async (req, res) => {
     try {
-        const { TotalAmount, PaidAmount, studentId, dueDate } = req.body;
+        const { TotalAmount, PaidAmount, studentId, dueDate, Fees    } = req.body;
         console.log("Student data:", req.body);
 
         if (!TotalAmount || !PaidAmount || !studentId) {
@@ -20,7 +20,7 @@ const updateStudentFees = async (req, res) => {
         // Update the student record
         const updatedStudent = await studentSchema.findOneAndUpdate(
             { studentId },
-            { TotalAmount, PaidAmount, dueDate, status },
+            { Fees: Fees },
             { new: true }
         );
 
