@@ -42,10 +42,8 @@ const updateStudent = async (req, res) => {
     try {
 
         const { name, parentName, parentPhone, address, age, grade, Fees, studentId } = req.body;
-        console.log("Student date", req.body);
-
-        if (!name || !parentName || !parentPhone || !age || !grade || !address) {
-            return res.status(400).json({ message: "All fields are required" });
+        if (!studentId) {
+            return res.status(400).json({ message: "studentId is Required" });
         };
 
         const gradeFeesMap = {

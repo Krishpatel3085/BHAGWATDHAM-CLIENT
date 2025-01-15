@@ -2,7 +2,7 @@ const studentSchema = require('../Model/student')
 
 const updateStudentFees = async (req, res) => {
     try {
-        const { TotalAmount, PaidAmount, studentId, dueDate, Fees    } = req.body;
+        const { TotalAmount, PaidAmount, studentId, dueDate, Fees } = req.body;
         console.log("Student data:", req.body);
 
         if (!TotalAmount || !PaidAmount || !studentId) {
@@ -37,5 +37,18 @@ const updateStudentFees = async (req, res) => {
     }
 };
 
+// Get Fees by id
+const getStudentFees = async (req, res) => {
+    try {
+        const { id: _id } = req.params;
+        const students = await studentSchema.find({ Student: _id });
+        res.status(200).json({ students });
 
-module.exports = { updateStudentFees };
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
+
+module.exports = { updateStudentFees, getStudentFees };
