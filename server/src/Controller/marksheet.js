@@ -47,7 +47,7 @@ const GetAllMarksheets = async (req, res) => {
 const GetMarksheetById = async (req, res) => {
     try {
         const { id: _id } = req.params;
-        const marksheets = await MarksheetSchema.findOne({ Student: _id });
+        const marksheets = await MarksheetSchema.find({ Student: _id });
         if (!marksheets) {
             return res.status(404).json({ error: 'Marksheet not found' });
         }
