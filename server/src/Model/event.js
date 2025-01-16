@@ -18,6 +18,9 @@ const EventSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    EventStatus:{
+        type:String,
+    }
 
 }, { timestamps: true });
 
