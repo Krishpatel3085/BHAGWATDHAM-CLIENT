@@ -11,11 +11,24 @@ const createEvent = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         };
 
+        // Get the current date and time
+        const currentDate = new Date();
+        const eventDateTime = new Date(`${EventDate}T${EventTime}`);
+
+        // Determine the event status
+        let EventStatus = "Upcoming";
+        if (eventDateTime.toDateString() === currentDate.toDateString()) {
+            EventStatus = "Today";
+        } else if (eventDateTime < currentDate) {
+            EventStatus = "Past";
+        }
+
         const newEvent = await EventSchema.create({
             EventName,
             EventDate,
             EventTime,
-            EventDescriptions
+            EventDescriptions,
+            EventStatus
         });
         res.status(201).json({ mesaage: "Event created successfully", newEvent });
 
@@ -38,12 +51,37 @@ const getAllEvents = async (req, res) => {
 //  update events
 const UpdateEvent = async (req, res) => {
     try {
+        // Destructure updated fields from the request body
+        const { EventDate, EventTime } = req.body;
+
+        // If `EventDate` and `EventTime` are provided, calculate the `EventStatus`
+        let EventStatus;
+        if (EventDate && EventTime) {
+            const currentDate = new Date();
+            const eventDateTime = new Date(`${EventDate}T${EventTime}`);
+
+            if (eventDateTime.toDateString() === currentDate.toDateString()) {
+                EventStatus = "Today";
+            } else if (eventDateTime < currentDate) {
+                EventStatus = "Past";
+            } else {
+                EventStatus = "Upcoming";
+            }
+
+            // Add the calculated EventStatus to the request body
+            req.body.EventStatus = EventStatus;
+        }
+
+        // Update the event and return the updated document
         const event = await EventSchema.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
         if (!event) return res.status(404).json({ message: "Event not found" });
+
         res.json(event);
     } catch (error) {
-        res.status(400).json({ message: error.message })
+        res.status(400).json({ message: error.message });
     }
+
 }
 
 
