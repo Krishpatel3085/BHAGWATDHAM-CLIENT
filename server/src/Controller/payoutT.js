@@ -2,17 +2,18 @@ const teacherSchema = require('../Model/teacher')
 
 const updateTeacherPayout = async (req, res) => {
     try {
-        const { bonus, deductions, employeeNo, salary, status } = req.body;
+        const { bonus, employeeNo,total, salary, NetPay,month } = req.body;
         console.log("Teacher data:", req.body);
 
-        if (!bonus || !deductions || !employeeNo) {
+        if (!employeeNo) {
             return res.status(400).json({ message: "All fields are required" });
         }
 
+        let status = (total === NetPay) ? 'paid' : 'pending';
         // Update the student record
         const updatedTeacher = await teacherSchema.findOneAndUpdate(
             { employeeNo },
-            { bonus, deductions, salary, status },
+            { bonus, total, salary, status, month ,NetPay},
             { new: true }
         );
 
