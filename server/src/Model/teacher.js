@@ -41,7 +41,7 @@ const teacherSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    deductions: {
+    total: {
         type: Number,
         default: 0
     },
@@ -51,7 +51,10 @@ const teacherSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-    }
+    },
+    month: {
+        type: String,
+    },
 
 }, { timestamps: true });
 
