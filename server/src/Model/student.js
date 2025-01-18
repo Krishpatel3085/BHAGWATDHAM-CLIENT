@@ -38,11 +38,15 @@ const studentSchema = new mongoose.Schema({
         },
         status: {
             type: String,
+            default: 'pending',
         },
         dueDate: {
             type: String
         },
         paymentMethod: {
+            type: String
+        },
+        lastPaymentDate:{
             type: String
         }
     }],
