@@ -57,12 +57,12 @@ const updateStudent = async (req, res) => {
             '8th': 2400,
             '9th': 2600,
             '10th': 2800,
-            '11th commerce': 3200,
-            '11th arts': 3000,
-            '11th science': 3400,
-            '12th commerce': 3500,
-            '12th arts': 3300,
-            '12th science': 3800,
+            '11th Commerce': 3200,
+            '11th Arts': 3000,
+            '11th Science': 3400,
+            '12th Commerce': 3500,
+            '12th Arts': 3300,
+            '12th Science': 3800,
         };
 
         // Fetch the fee based on the grade
