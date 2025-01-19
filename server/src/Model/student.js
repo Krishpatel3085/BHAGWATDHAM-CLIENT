@@ -27,8 +27,11 @@ const studentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    url: {
+        type: String
+    },
 
-    Fees: [{    
+    Fees: [{
         TotalAmount: {
             type: Number
         },
@@ -46,7 +49,7 @@ const studentSchema = new mongoose.Schema({
         paymentMethod: {
             type: String
         },
-        lastPaymentDate:{
+        lastPaymentDate: {
             type: String
         }
     }],

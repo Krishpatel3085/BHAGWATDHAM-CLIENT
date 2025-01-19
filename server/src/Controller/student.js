@@ -1,6 +1,27 @@
 // Teacher create update delaete
 const studentSchema = require('../Model/student')
+const multer = require("multer");
+const dotenv = require('dotenv');
+dotenv.config()
 
+
+const aws = require('aws-sdk');
+const multers3 = require('multer-s3')
+const BUCKET_NAME = process.env.BUCKET_NAME;
+const s3 = new aws.S3();
+
+const upload = multer({
+    storage: multers3({
+        s3: s3,
+        bucket: BUCKET_NAME,
+        metadata: function (req, file, cb) {
+            cb(null, { fieldname: file.fieldname })
+        },
+        key: function (req, file, cb) {
+            cb(null, file.originalname);
+        },
+    })
+})
 // Create
 const createStudent = async (req, res) => {
     try {
@@ -35,6 +56,56 @@ const createStudent = async (req, res) => {
     }
 };
 
+// /Profile imge upload
+const uploadProfileImage = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded" });
+        }
+        const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+        console.log("Uploaded file URL:", url);
+
+        const { studentId } = req.body;
+
+        if (!studentId) {
+            return res.status(400).json({ message: "Student ID is required to update profile image" });
+        }
+
+        const student = await studentSchema.findOne({ studentId });
+
+        if (!student) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        if (student.url) {
+            const oldImageKey = student.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
+            console.log("Deleting old image:", oldImageKey);
+
+            await s3
+                .deleteObject({
+                    Bucket: BUCKET_NAME,
+                    Key: oldImageKey,
+                })
+                .promise();
+
+            console.log("Old image deleted successfully");
+        }
+        const updatedStudent = await studentSchema.findOneAndUpdate(
+            { studentId },
+            { $set: { url: url } },
+            { new: true }
+        );
+
+        res.status(200).json({
+            message: "Profile image uploaded and updated successfully",
+            updatedStudent,
+        });
+    } catch (error) {
+        console.error("Error uploading profile image:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
 // Update
 
@@ -45,7 +116,6 @@ const updateStudent = async (req, res) => {
         if (!studentId) {
             return res.status(400).json({ message: "studentId is Required" });
         };
-
         const gradeFeesMap = {
             '1st': 1000,
             '2nd': 1200,
@@ -129,4 +199,7 @@ const getAllStudents = async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 };
-module.exports = { createStudent, updateStudent, deleteStudent, getStudentById, getAllStudents };
+
+
+
+module.exports = { createStudent, updateStudent, upload, deleteStudent, getStudentById, getAllStudents, uploadProfileImage };
