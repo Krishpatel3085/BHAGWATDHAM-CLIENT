@@ -55,6 +55,9 @@ const teacherSchema = new mongoose.Schema({
     month: {
         type: String,
     },
+    url: {
+        type: String
+    },
 
 }, { timestamps: true });
 
