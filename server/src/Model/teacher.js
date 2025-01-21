@@ -58,6 +58,10 @@ const teacherSchema = new mongoose.Schema({
     url: {
         type: String
     },
+    gender:{
+        type: String,
+        // required: true
+    }
 
 }, { timestamps: true });
 

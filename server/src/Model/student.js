@@ -30,6 +30,9 @@ const studentSchema = new mongoose.Schema({
     url: {
         type: String
     },
+    gender:{
+        type: String,
+    },
 
     Fees: [{
         TotalAmount: {

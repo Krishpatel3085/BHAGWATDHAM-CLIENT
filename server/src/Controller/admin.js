@@ -39,7 +39,7 @@ const createAdmin = async (req, res) => {
                 const lastEmpNo = lastTeacher?.employeeNo || "EMP0000"; // Default if no teachers exist
                 newEmpNo = `EMP${String(parseInt(lastEmpNo.slice(3)) + 1).padStart(4, '0')}`;
 
-                await teacherSchema.create({ Teacher: newUser._id, employeeNo: newEmpNo });
+                await teacherSchema.create({ Teacher: newUser._id, employeeNo: newEmpNo, gender: gender });
             } catch (err) {
                 console.error("Error creating teacher entry:", err);
                 await Users_Admin.findByIdAndDelete(newUser._id);
@@ -57,7 +57,7 @@ const createAdmin = async (req, res) => {
                 newStuNo = `STU${String(parseInt(lastStuNo.slice(3)) + 1).padStart(4, '0')}`;
 
                 // Create a new student entry with a unique student ID
-                await studentSchema.create({ Student: newUser._id, studentId: newStuNo });
+                await studentSchema.create({ Student: newUser._id, studentId: newStuNo, gender: gender });
             } catch (err) {
                 console.error("Error creating student entry:", err);
                 await Users_Admin.findByIdAndDelete(newUser._id);
