@@ -6,7 +6,7 @@ const studentSchema = require("../Model/student");
 // Create User
 const createAdmin = async (req, res) => {
     try {
-        const { email, password, username, role } = req.body;
+        const { email, password, username, role, gender } = req.body;
 
         if (!email || !password || !username || !role) {
             return res.status(400).json({ message: "All fields are required" });
@@ -28,6 +28,7 @@ const createAdmin = async (req, res) => {
             password,
             username,
             role,
+            gender,
             status: "Pending"
         });
 
