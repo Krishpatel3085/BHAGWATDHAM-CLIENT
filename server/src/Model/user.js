@@ -15,6 +15,9 @@ const Users_Admin = new mongoose.Schema({
         type: String,
         enum: ['Student', 'Teacher'],
     },
+    gender: {
+        type: String,
+    },
     status: {
         type: String,
         enum: ['Pending', 'Approved', 'Rejected'],
