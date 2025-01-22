@@ -58,7 +58,11 @@ const teacherSchema = new mongoose.Schema({
     url: {
         type: String
     },
-    gender:{
+    gender: {
+        type: String,
+        // required: true
+    },
+    paymentMethod: {
         type: String,
         // required: true
     }
