@@ -54,6 +54,9 @@ const studentSchema = new mongoose.Schema({
         },
         lastPaymentDate: {
             type: String
+        },
+        receiptNo:{
+            type: String
         }
     }],
 

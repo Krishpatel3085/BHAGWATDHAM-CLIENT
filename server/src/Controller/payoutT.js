@@ -2,7 +2,7 @@ const teacherSchema = require('../Model/teacher')
 
 const updateTeacherPayout = async (req, res) => {
     try {
-        const { bonus, employeeNo,total, salary, NetPay,month } = req.body;
+        const { bonus, employeeNo, total, salary, NetPay, month, paymentMethod } = req.body;
         console.log("Teacher data:", req.body);
 
         if (!employeeNo) {
@@ -13,7 +13,7 @@ const updateTeacherPayout = async (req, res) => {
         // Update the student record
         const updatedTeacher = await teacherSchema.findOneAndUpdate(
             { employeeNo },
-            { bonus, total, salary, status, month ,NetPay},
+            { bonus, total, salary, status, month, NetPay, paymentMethod },
             { new: true }
         );
 
