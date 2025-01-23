@@ -1,5 +1,5 @@
 const express = require('express')
-const { getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachers, uploadProfileImageTeacher, upload } = require("../Controller/teacher")
+const { getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachers, uploadProfileImageTeacher, upload, AttendanceCreate } = require("../Controller/teacher")
 const { updateTeacherPayout } = require("../Controller/payoutT")
 
 
@@ -13,5 +13,6 @@ teacher_router.post('/CreateTeacher', createTeacher)
 teacher_router.delete('/deleteTeacher/:id', deleteTeacher)
 teacher_router.put('/UpdateTeacher', updateTeacher)
 teacher_router.put('/Payout', updateTeacherPayout)
+teacher_router.put('/AttendanceTe', AttendanceCreate)
 
 module.exports = { teacher_router };
