@@ -201,5 +201,43 @@ const getAllStudents = async (req, res) => {
 };
 
 
+// Create Attendance
+const AttendanceCreate = async (req, res) => {
+    try {
+        const { status, remark, studentId, date } = req.body;
 
-module.exports = { createStudent, updateStudent, upload, deleteStudent, getStudentById, getAllStudents, uploadProfileImage };
+        if (!studentId) {
+            return res.status(400).json({ message: "studentId is required" });
+        }
+
+        // Find the student and push the attendance entry
+        const updatedStudent = await studentSchema.findOneAndUpdate(
+            { studentId: studentId },
+            {
+                $push: {
+                    Attendance: {
+                        date: date || new Date(), 
+                        attendance: status,
+                        remark:remark, 
+                    },
+                },
+            },
+            { new: true } 
+        );
+
+        if (!updatedStudent) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        res.status(201).json({
+            message: "Attendance marked successfully",
+            attendance: updatedStudent.Attendance,
+        });
+    } catch (error) {
+        console.error("Error marking attendance:", error.message);
+        res.status(500).json({ message: "Error marking attendance", error: error.message });
+    }
+};
+
+
+module.exports = { createStudent, updateStudent, upload, deleteStudent, getStudentById, getAllStudents, uploadProfileImage, AttendanceCreate };

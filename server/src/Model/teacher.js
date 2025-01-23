@@ -65,8 +65,20 @@ const teacherSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         // required: true
-    }
-
+    },
+    Attendance: [{
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        attendance: {
+            type: String,
+            enum: ['present', 'absent']
+        },
+        remark: {
+            type: String,
+        }
+    }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('Teacher', teacherSchema);

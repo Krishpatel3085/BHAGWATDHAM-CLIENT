@@ -30,7 +30,7 @@ const studentSchema = new mongoose.Schema({
     url: {
         type: String
     },
-    gender:{
+    gender: {
         type: String,
     },
 
@@ -55,8 +55,22 @@ const studentSchema = new mongoose.Schema({
         lastPaymentDate: {
             type: String
         },
-        receiptNo:{
+        receiptNo: {
             type: String
+        }
+    }],
+
+    Attendance: [{
+        date: {
+            type: Date,
+            default: Date.now
+        },
+        attendance: {
+            type: String,
+            enum: ['present', 'absent']
+        },
+        remark: {
+            type: String,
         }
     }],
 
