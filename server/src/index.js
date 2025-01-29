@@ -7,6 +7,7 @@ const { teacher_router } = require("./Routes/teacher");
 const { student_router } = require("./Routes/student");
 const { lecture_router } = require("./Routes/lecture");
 const { marksheet_router } = require("./Routes/marksheet");
+const { TempleGallery_router } = require("./Routes/gallery");
 const dotenv = require('dotenv');
 const cors = require("cors");
 
@@ -30,6 +31,7 @@ app.use('/teacher', teacher_router)
 app.use('/student', student_router)
 app.use('/lecture', lecture_router)
 app.use('/marksheet', marksheet_router)
+app.use('/TempleGallery', TempleGallery_router)
 
 app.listen(process.env.PORT, async () => {
     await mongoose.connect(process.env.MONGO_URL)
