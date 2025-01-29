@@ -111,7 +111,7 @@ const uploadProfileImageTeacher = async (req, res) => {
         const teacher = await teacherSchema.findOne({ employeeNo });
 
         if (!teacher) {
-            return res.status(404).json({ message: "Student not found" });
+            return res.status(404).json({ message: "Employee not found" });
         }
 
         if (teacher.url) {
