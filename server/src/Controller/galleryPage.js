@@ -1,4 +1,4 @@
-const GalleryPageSchema = require('../Model/gallery')
+const GalleryPageSchema = require('../Model/GalleryPage')
 const multer = require("multer");
 const dotenv = require('dotenv');
 dotenv.config()
