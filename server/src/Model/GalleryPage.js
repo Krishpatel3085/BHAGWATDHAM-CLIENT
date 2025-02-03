@@ -1,7 +1,8 @@
+
 const mongoose = require('mongoose');
 
 
-const TempleGallerySchema = new mongoose.Schema({
+const GalleryPageSchema = new mongoose.Schema({
 
     ImageName: {
         type: String,
@@ -14,11 +15,13 @@ const TempleGallerySchema = new mongoose.Schema({
     Img: {
         type: String,
         // required: true
+    },
+    Imageyear:{
+        type: String,
+        // required: true
     }
 
 }, { timestamps: true });
 
 
-module.exports = mongoose.model('TempleGallery', TempleGallerySchema);
-
-
+module.exports = mongoose.model('GalleryPage', GalleryPageSchema);
