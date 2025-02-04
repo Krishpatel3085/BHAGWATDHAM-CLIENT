@@ -1,28 +1,26 @@
-'use client'
-
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Search } from 'lucide-react'
-import { Button } from "../components/ui/Button"
-import { Card, CardContent } from "../components/ui/Card"
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search } from 'lucide-react';
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/Card";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../components/ui/Select"
-import { Input } from "../components/ui/Input"
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
-import { Image } from '../components/ui/Image'
-import About2 from '../images/AboutUsImage/About2.jpg';
-import Publication1 from '../images/Publication/bhagavad-gita.jpg'
-import Publication2 from '../images/Publication/Morning-prayers.jpg'
-import Publication3 from '../images/Publication/Spirtual-discource.jpg'
-import Publication4 from '../images/Publication/Temple.jpg'
-import Publication5 from '../images/Publication/Song.jpg'
-import Publication6 from '../images/Publication/Scared.jpg'
+} from "../components/ui/Select";
+import { Input } from "../components/ui/Input";
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { Image } from '../components/ui/Image';
+import Publication1 from '../images/Publication/bhagavad-gita.jpg';
+import Publication2 from '../images/Publication/Morning-prayers.jpg';
+import Publication3 from '../images/Publication/Spirtual-discource.jpg';
+import Publication4 from '../images/Publication/Temple.jpg';
+import Publication5 from '../images/Publication/Song.jpg';
+import Publication6 from '../images/Publication/Scared.jpg';
+import MainSection from '../components/MainSection';
 
 
 const categories = [
@@ -88,35 +86,7 @@ export default function PublicationsPage() {
             <Header />
 
             {/* Hero Section with Breadcrumb */}
-            <section className="relative h-[300px] overflow-hidden">
-                <Image
-                    src={About2}
-                    alt="Publications Hero"
-                    width={1920}
-                    height={300}
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="text-white text-center"
-                    >
-                        <div className="flex items-center justify-center space-x-2 text-sm mb-4">
-                            <a
-                                href="/"
-                                className="hover:text-accent transition-colors"
-                            >
-                                HOME
-                            </a>
-                            <span>{'>'}</span>
-                            <span>PUBLICATION</span>
-                        </div>
-                        <h1 className="text-4xl font-bold">Our Publications</h1>
-                    </motion.div>
-                </div>
-            </section>
-
+           <MainSection/>
             {/* Filter Section */}
             <section className="py-8 border-b">
                 <div className="container mx-auto px-4">

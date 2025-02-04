@@ -7,6 +7,8 @@ import PublicationsPage from './Pages/Publications.jsx';
 import ContactPage from './Pages/Contact.jsx';
 import GalleryPage from './Pages/Gallery.jsx';
 import SchoolPage from './Pages/School.jsx';
+import ActivitiesDetailsPage from './Pages/ActivitiesDetailsPage.jsx';
+import YearGalleryPage from './Pages/YearGalleryPage.jsx';
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
         <Route path='/school' element={<SchoolPage />} />
         <Route path='/gallery' element={<GalleryPage />} />
         <Route path='/activities' element={<ActivitiesPage />} />
+        <Route path='/ActivitesDetailsPage' element={<ActivitiesDetailsPage/>} />
         <Route path='/Publications' element={<PublicationsPage />} />
         <Route path='/about-us' element={<About />} />
         <Route path='/contact-us' element={<ContactPage />} />
+        <Route path='/year/:year' element={<YearGalleryPage />} />
 
       </Routes>
     </>

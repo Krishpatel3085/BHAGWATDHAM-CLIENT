@@ -1,37 +1,24 @@
-'use client'
-
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Textarea } from "../components/ui/textarea"
-import { Mail, Phone } from 'lucide-react'
-import { Button } from "../components/ui/Button"
-import { Card, CardContent } from "../components/ui/Card"
-// import {
-//     Select,
-//     SelectContent,
-//     SelectItem,
-//     SelectTrigger,
-//     SelectValue,
-// } from "../components/ui/Select"
-import { Input } from "../components/ui/Input"
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
-import { Image } from '../components/ui/Image'
-import About2 from '../images/AboutUsImage/About2.jpg';
-
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Textarea } from "../components/ui/textarea";
+import { Mail, Phone } from 'lucide-react';
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/Card";
+import { Input } from "../components/ui/Input";
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import MainSection from '../components/MainSection';
 
 export default function ContactPage() {
-  //   const [email, setEmail] = useState('')
   const [newsletterEmail, setNewsletterEmail] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Handle form submission
+   
   }
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault()
-    // Handle newsletter subscription
   }
 
   return (
@@ -39,34 +26,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Section with Breadcrumb */}
-      <section className="relative h-[300px] overflow-hidden">
-        <Image
-          src={About2}
-          alt="Contact Hero"
-          width={1920}
-          height={300}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-white text-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-sm mb-4">
-              <a
-                href="/"
-                className='hover:text-accent transition-colors'
-              >
-                HOME
-              </a>
-              <span>{'>'}</span>
-              <span>CONTACT US</span>
-            </div>
-            <h1 className="text-4xl font-bold">Contact Us</h1>
-          </motion.div>
-        </div>
-      </section>
+      <MainSection/>
 
       {/* Contact Information and Form Section */}
       <section className="py-16">

@@ -1,33 +1,28 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { Button } from "../components/ui/Button"
-import { Card, CardContent } from "../components/ui/Card"
-import { Header } from '../components/Header'
-import { Footer } from '../components/Footer'
-// import { colors } from '../../utils/colors'
-import { Image } from '../components/ui/Image'
-import About2 from '../images/AboutUsImage/About2.jpg';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { Button } from "../components/ui/Button";
+import { Card, CardContent } from "../components/ui/Card";
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import { Image } from '../components/ui/Image';
 import Activites1 from '../images/Activites/Spiritual.jpg';
 import Activites2 from '../images/Activites/Cluture.jpg';
 import Activites3  from '../images/Activites/Eductional.jpg';
+import { Link } from 'react-router-dom';
+import MainSection from '../components/MainSection';
 
 const activities = [
   {
     name: "Spiritual Activities",
     image: Activites1,
-    link: "#spiritual"
   },
   {
     name: "Cultural Activities",
     image: Activites2,
-    link: "#cultural"
   },
   {
     name: "Educational Activities",
     image: Activites3,
-    link: "#educational"
   }
 ]
 
@@ -37,34 +32,7 @@ export default function ActivitiesPage() {
       <Header />
       
       {/* Hero Section with Breadcrumb */}
-      <section className="relative h-[300px] overflow-hidden">
-        <Image
-          src={About2}
-          alt="Activities Hero"
-          width={1920}
-          height={300}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
-          <motion.div 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-white text-center"
-          >
-            <div className="flex items-center justify-center space-x-2 text-sm mb-4">
-              <a 
-                href="/" 
-                className='hover:text-accent transition-colors'
-              >
-                HOME
-              </a>
-              <span>{'>'}</span>
-              <span>ACTIVITIES</span>
-            </div>
-            <h1 className="text-4xl font-bold">Our Activities</h1>
-          </motion.div>
-        </div>
-      </section>
+      <MainSection/>
 
       {/* Activities Grid */}
       <section className="py-16">
@@ -88,7 +56,7 @@ export default function ActivitiesPage() {
                         alt={activity.name}
                         width={400}
                         height={400}
-                        className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105 rounded-xl"
                       />
                       <div className={`absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300`} />
                     </div>
@@ -97,12 +65,9 @@ export default function ActivitiesPage() {
                         <h3 className='text-xl font-bold text-secondary group-hover:text-primary transition-colors'>
                           {activity.name}
                         </h3>
-                        <motion.div
-                          whileHover={{ x: 5 }}
-                          transition={{ duration: 0.2 }}
-                        >
+                        <Link to='/ActivitesDetailsPage'>
                           <ArrowRight className='w-6 h-6 text-primary' />
-                        </motion.div>
+                        </Link>
                       </div>
                     </div>
                   </CardContent>
