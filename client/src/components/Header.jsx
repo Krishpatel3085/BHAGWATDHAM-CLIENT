@@ -12,8 +12,8 @@ const navItems = [
     { title: "GALLERY", to: "/gallery" },
     { title: "ACTIVITIES", to: "/activities" },
     { title: "PUBLICATION", to: "/Publications" },
-    { title: "ABOUT US", to: "/about-us" },
-    { title: "CONTACT US", to: "/contact-us" },
+    { title: "ABOUT US", to: "/aboutus" },
+    { title: "CONTACT US", to: "/contactus" },
 ];
 
 export function Header() {

@@ -26,6 +26,8 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [galleryImages, setGalleryImages] = useState([]);
+    const [serverError, setServerError] = useState(false);
+const [isLoadingImages, setIsLoadingImages] = useState(true);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -44,24 +46,50 @@ export default function Home() {
 
 
     // get gallery image 
-    useEffect(() => {
-        const fetchGalleryImages = async () => {
-            try {
-                const response = await axios.get(`${APi_URL}TempleGallery/getTG` );
+    // useEffect(() => {
+    //     const fetchGalleryImages = async () => {
+    //         try {
+    //             const response = await axios.get(`${APi_URL}TempleGallery/getTG` );
                 
-                setGalleryImages(response.data.galleries)
-                console.log(response.data);
+    //             setGalleryImages(response.data.galleries)
+    //             console.log(response.data);
                 
                 
-            } catch (error) {
-                console.error('Error fetching gallery images:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    //         } catch (error) {
+    //             console.error('Error fetching gallery images:', error);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
 
-        fetchGalleryImages();
-    }, []);
+    //     fetchGalleryImages();
+    // }, []);
+
+useEffect(() => {
+    const fetchGalleryImages = async () => {
+        try {
+            setIsLoadingImages(true);
+            setServerError(false); 
+
+            const response = await axios.get(`${APi_URL}TempleGallery/getTG`);
+            
+            if (response.data.galleries && response.data.galleries.length > 0) {
+                setGalleryImages(response.data.galleries);
+            } else {
+                setGalleryImages([]); 
+            }
+
+        } catch (error) {
+            console.error('Error fetching gallery images:', error);
+            setServerError(true); 
+        } finally {
+            setIsLoadingImages(false);
+        }
+    };
+
+    fetchGalleryImages();
+}, []);
+
 
     return (
         <div className='min-h-screen bg-background'>
@@ -203,7 +231,7 @@ export default function Home() {
                     </section>
 
                     {/* Gallery Section */}
-                    <section id="gallery" className="py-16">
+                    {/* <section id="gallery" className="py-16">
                         <div className="container mx-auto px-4">
                             <motion.h2
                                 className='text-3xl font-bold text-center text-secondary mb-8'
@@ -215,26 +243,99 @@ export default function Home() {
                                 Temple Gallery
                             </motion.h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                                {galleryImages.map((image, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        whileInView={{ opacity: 1, scale: 1 }}
-                                        transition={{ duration: 0.5 }}
-                                        viewport={{ once: true }}
-                                    >
-                                        <Image
-                                            src={image.Img}
-                                            alt="Gallery Image"
-                                            width={300}
-                                            height={300}
-                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96"
-                                        />
-                                    </motion.div>
-                                ))}
+                                {isLoading
+                                    ? 
+                                    [...Array(8)].map((_, index) => (
+                                        <div key={index} className="h-96 w-96 bg-gray-300 animate-pulse rounded-lg"></div>
+                                    ))
+                                    : 
+                                    galleryImages.map((image, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.5 }}
+                                            viewport={{ once: true }}
+                                        >
+                                            <Image
+                                                src={image.Img || '/images/no-image-available.jpg'} // Use fallback if image is missing
+                                                alt="Gallery Image"
+                                                width={300}
+                                                height={300}
+                                                className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96"
+                                            />
+                                        </motion.div>
+                                    ))}
                             </div>
                         </div>
-                    </section>
+                    </section> */}
+
+                    {/* Gallery Section */}
+                    {/* Gallery Section */}
+<section id="gallery" className="py-16">
+    <div className="container mx-auto px-4">
+        <motion.h2
+            className="text-3xl font-bold text-center text-secondary mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+        >
+            Temple Gallery
+        </motion.h2>
+
+        {/* Show loading skeleton while fetching images */}
+        {isLoadingImages && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <div key={index} className="animate-pulse bg-gray-300 h-64 w-full rounded-lg"></div>
+                ))}
+            </div>
+        )}
+
+        {/* Show error message if server is offline */}
+        {serverError && (
+            <div className="text-center text-red-600 text-lg font-semibold">
+                Server is Off. Please try again later.
+            </div>
+        )}
+
+        {/* Show images or fallback if gallery is empty */}
+        {!isLoadingImages && !serverError && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {galleryImages.length > 0 ? (
+                    galleryImages.map((image, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5 }}
+                            viewport={{ once: true }}
+                            className="rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+                        >
+                            <Image
+                                src={image.Img || '/images/not-available.jpg'} // Fallback image
+                                alt="Gallery Image"
+                                width={400}
+                                height={300}
+                                className="w-full h-64 object-cover rounded-lg"
+                            />
+                        </motion.div>
+                    ))
+                ) : (
+                    <div className="text-center text-gray-500 text-lg font-semibold col-span-full">
+                        No images available.
+                    </div>
+                )}
+            </div>
+        )}
+    </div>
+</section>
+
+
+
+                    
+
                     {/* Activities Section */}
                     <section id="activities" className='py-16 bg-primary text-white'>
                         <div className="container mx-auto px-4">
