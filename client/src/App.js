@@ -20,8 +20,8 @@ function App() {
         <Route path='/activities' element={<ActivitiesPage />} />
         <Route path='/ActivitesDetailsPage' element={<ActivitiesDetailsPage/>} />
         <Route path='/Publications' element={<PublicationsPage />} />
-        <Route path='/about-us' element={<About />} />
-        <Route path='/contact-us' element={<ContactPage />} />
+        <Route path='/aboutus' element={<About />} />
+        <Route path='/contactus' element={<ContactPage />} />
         <Route path='/year/:year' element={<YearGalleryPage />} />
 
       </Routes>
