@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // import { ChevronLeft, ChevronRight } from 'lucide-react';
+import axios from 'axios';
 import { Button } from "../components/ui/Button";
 import { Card, CardContent } from "../components/ui/Card";
 import { Loader } from '../components/ui/Loader';
@@ -10,14 +11,9 @@ import { Image } from '../components/ui/Image';
 import img1 from '../images/SilderImg/img1.jpg';
 import img2 from '../images/SilderImg/img2.jpg';
 import img4 from '../images/SilderImg/img4.jpg';
-import Gallery1 from '../images/Gallery/Gallery1.jpg';
-import Gallery2 from '../images/Gallery/Gallery2.jpg';
-import Gallery3 from '../images/Gallery/Gallery3.jpg';
-import Gallery4 from '../images/Gallery/Gallery4.jpg';
-import Gallery5 from '../images/Gallery/Gallery5.jpg';
-import Gallery6 from '../images/Gallery/Gallery6.jpg';
-import Gallery7 from '../images/Gallery/Gallery7.jpg';
-import Gallery8 from '../images/Gallery/Gallery8.jpg';
+import {APi_URL} from '../Utilis/Api';
+
+
 
 const sliderImages = [
     img4,
@@ -25,21 +21,11 @@ const sliderImages = [
     img1,
 ]
 
-const GalleryImages = [
-    Gallery1,
-    Gallery8,
-    Gallery4,
-    Gallery5,
-    Gallery6,
-    Gallery7,
-    Gallery3,
-    Gallery2,
-]
-
 
 export default function Home() {
-    const [isLoading, setIsLoading] = useState(true)
-    const [currentSlide, setCurrentSlide] = useState(0)
+    const [isLoading, setIsLoading] = useState(true);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [galleryImages, setGalleryImages] = useState([]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -56,13 +42,26 @@ export default function Home() {
         return () => clearInterval(timer)
     }, [])
 
-    // const nextSlide = () => {
-    //     setCurrentSlide((prev) => (prev + 1) % sliderImages.length)
-    // }
 
-    // const prevSlide = () => {
-    //     setCurrentSlide((prev) => (prev - 1 + sliderImages.length) % sliderImages.length)
-    // }
+    // get gallery image 
+    useEffect(() => {
+        const fetchGalleryImages = async () => {
+            try {
+                const response = await axios.get(`${APi_URL}TempleGallery/getTG` );
+                
+                setGalleryImages(response.data.galleries)
+                console.log(response.data);
+                
+                
+            } catch (error) {
+                console.error('Error fetching gallery images:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchGalleryImages();
+    }, []);
 
     return (
         <div className='min-h-screen bg-background'>
@@ -215,26 +214,27 @@ export default function Home() {
                             >
                                 Temple Gallery
                             </motion.h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 ">
-                                {GalleryImages.map((image, index) => (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                {galleryImages.map((image, index) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, scale: 0.8 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 0.5 }}
-                                        viewport={{ once: true }} >
-                                        <Image src={image}
-                                            alt={'Gallery Image'}
+                                        viewport={{ once: true }}
+                                    >
+                                        <Image
+                                            src={image.Img}
+                                            alt="Gallery Image"
                                             width={300}
-                                             height={300}
-                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96 object-center object-top"
+                                            height={300}
+                                            className="rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 object-contain h-96 w-96"
                                         />
                                     </motion.div>
                                 ))}
                             </div>
                         </div>
                     </section>
-
                     {/* Activities Section */}
                     <section id="activities" className='py-16 bg-primary text-white'>
                         <div className="container mx-auto px-4">

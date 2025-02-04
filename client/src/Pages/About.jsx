@@ -3,17 +3,15 @@ import { Button } from "../components/ui/Button";
 import { Card, CardContent } from "../components/ui/Card";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-// import { colors } from '../../utils/colors'
 import { Image } from '../components/ui/Image';
 import About1 from '../images/AboutUsImage/About1.jpg';
-import About2 from '../images/AboutUsImage/About2.jpg';
 import Gallery8 from '../images/Gallery/Gallery8.jpg';
 import History from '../images/AboutUsImage/History2.png';
 import facilities1 from '../images/AboutUsImage/facilities1.jpg';
 import facilities2 from '../images/AboutUsImage/facilities2.avif';
 import facilities3 from '../images/AboutUsImage/facilities3.webp';
 import facilities4 from '../images/AboutUsImage/facilities4.jpg';
-// import { Title } from '@radix-ui/react-dialog';
+import MainSection from '../components/MainSection';
 
 
 export default function AboutPage() {
@@ -22,29 +20,7 @@ export default function AboutPage() {
             <Header />
 
             {/* Hero Section with Breadcrumb */}
-            <section className="relative h-[300px] overflow-hidden">
-                <Image
-                    src={About2}
-                    alt="Temple Hero"
-                    width={1920}
-                    height={300}
-                    className="absolute inset-0 w-full h-full object-cover object-center bg-black bg-opacity-50 "
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
-                    <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="text-white text-center"
-                    >
-                        <div className="flex items-center justify-center space-x-2 text-sm mb-4">
-                            <a href="/" className="hover:text-accent">HOME</a>
-                            <span>{'>'}</span>
-                            <span>ABOUT US</span>
-                        </div>
-                        <h1 className="text-4xl font-bold">About Us</h1>
-                    </motion.div>
-                </div>
-            </section>
+           <MainSection/>
 
             {/* Shlok Section */}
             <section className="py-16">
