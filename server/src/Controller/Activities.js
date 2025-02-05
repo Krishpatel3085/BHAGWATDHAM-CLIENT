@@ -54,7 +54,7 @@ const FetchAllActivities = async (req, res) => {
     try {
         const activities = await ActivitiesSchema.find({})
         res.status(200).json({ message: 'All images fetched successfully', activities })
-        console.log("Activities fetched successfully", activities)
+      
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Internal Server Error' })

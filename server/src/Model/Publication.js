@@ -23,7 +23,11 @@ const PublicationSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
-    Link:{
+    Link: {
+        type: String,
+        // required: true
+    },
+    Pdf: {
         type: String,
         // required: true
     }
