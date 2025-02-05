@@ -22,18 +22,33 @@ const upload = multer({
     })
 })
 
+const uploadBook = multer({
+    storage: multers3({
+        s3: s3,
+        bucket: BUCKET_NAME,
+        metadata: function (req, file, cb) {
+            cb(null, { fieldname: file.fieldname })
+        },
+        key: function (req, file, cb) {
+            cb(null, file.originalname);
+        },
+    })
+})
+
 // Upload Image 
 const CreatePublication = async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ message: 'File is required' });
+        if (!req.files || !req.files['Img'] || !req.files['Pdf']) {
+            return res.status(400).json({ message: 'Image and PDF files are required' });
         }
 
         const { Publication, PublicationName, Description, PublicationDate } = req.body;
-        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Img'][0].key}`;
+        const Pdf = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}`;
 
         console.log("Data Fetch", req.body);
         console.log("Img Fetch", Img);
+        console.log("Pdf Fetch", Pdf);
 
         const Publications = await PublicationSchema.create({
             Publication,
@@ -41,9 +56,10 @@ const CreatePublication = async (req, res) => {
             Description,
             PublicationDate,
             Img,
+            Pdf
         });
 
-        res.status(200).json({ message: 'Image uploaded successfully', Publications });
+        res.status(200).json({ message: 'Publication created successfully', Publications });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -55,8 +71,6 @@ const GetPublication = async (req, res) => {
     try {
         const Publications = await PublicationSchema.find()
         res.status(200).json({ message: 'Publications fetched successfully', Publications })
-        console.log("Publications fetched successfully", Publications)
-
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Internal Server Error' })
@@ -68,7 +82,7 @@ const updatePublication = async (req, res) => {
     try {
         const { Publication, PublicationName, Description, PublicationDate } = req.body;
         const id = req.params.id;
-        
+
         console.log("Updating Publication ID:", id);
         console.log("Received Data:", req.body);
 
@@ -77,27 +91,36 @@ const updatePublication = async (req, res) => {
             return res.status(404).json({ message: 'Publication not found' });
         }
 
-        let updatedImg = existingPublication.Img; // Keep existing image if no new file is uploaded
-        if (req.file) {
-            const oldImageKey = existingPublication.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
+        let updatedImg = existingPublication.Img;
+        let updatedPdf = existingPublication.Pdf;
 
-            // Delete the old image from S3
-            if (oldImageKey) {
-                await s3.deleteObject({ Bucket: BUCKET_NAME, Key: oldImageKey }).promise();
+        if (req.files) {
+            // Update Image
+            if (req.files['Img']) {
+                const oldImageKey = existingPublication.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
+                if (oldImageKey) {
+                    await s3.deleteObject({ Bucket: BUCKET_NAME, Key: oldImageKey }).promise();
+                }
+                updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Img'][0].key}`;
             }
 
-            // Save the new image URL
-            updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+            // Update PDF
+            if (req.files['Pdf']) {
+                const oldPdfKey = existingPublication.Pdf.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
+                if (oldPdfKey) {
+                    await s3.deleteObject({ Bucket: BUCKET_NAME, Key: oldPdfKey }).promise();
+                }
+                updatedPdf = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}`;
+            }
         }
 
-        // Update database entry
         const updatedPublication = await PublicationSchema.findByIdAndUpdate(
             id,
-            { Publication, PublicationName, Description, PublicationDate, Img: updatedImg },
+            { Publication, PublicationName, Description, PublicationDate, Img: updatedImg, Pdf: updatedPdf },
             { new: true }
         );
 
-        res.status(200).json({ message: 'Publication updated successfully', gallery: updatedPublication });
+        res.status(200).json({ message: 'Publication updated successfully', publication: updatedPublication });
         console.log("Publication Updated Successfully:", updatedPublication);
     } catch (error) {
         console.error("Error updating publication:", error);
@@ -139,4 +162,4 @@ const deletePublication = async (req, res) => {
 };
 
 
-module.exports = { CreatePublication, GetPublication, upload, deletePublication, updatePublication }
+module.exports = { CreatePublication, GetPublication, upload, uploadBook, deletePublication, updatePublication }

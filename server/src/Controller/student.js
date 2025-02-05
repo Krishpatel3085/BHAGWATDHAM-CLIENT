@@ -183,7 +183,6 @@ const getStudentById = async (req, res) => {
     try {
         const { id: _id } = req.params;
         const student = await studentSchema.findOne({ Student: _id });
-        console.log("check student", student)
         res.status(200).json({ Message: "Student found", student });
     } catch (error) {
         res.status(400).json({ message: error.message })
