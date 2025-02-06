@@ -7,13 +7,13 @@ import logo from '../images/logoMain.png';
 import { Link } from "react-router-dom";
 
 const navItems = [
-    { title: "HOME", to: "/" },
-    { title: "SCHOOL", to: "/school" },
-    { title: "GALLERY", to: "/gallery" },
-    { title: "ACTIVITIES", to: "/activities" },
-    { title: "PUBLICATION", to: "/Publications" },
-    { title: "ABOUT US", to: "/aboutus" },
-    { title: "CONTACT US", to: "/contactus" },
+    { title: "Home", to: "/" },
+    { title: "School", to: "/school" },
+    { title: "Gallery", to: "/gallery" },
+    { title: "Activities", to: "/activities" },
+    { title: "Publication", to: "/Publications" },
+    { title: "About Us", to: "/aboutus" },
+    { title: "Contact Us", to: "/contactus" },
 ];
 
 export function Header() {

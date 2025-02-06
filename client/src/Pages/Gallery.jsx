@@ -40,7 +40,6 @@ export default function GalleryPage() {
                     }
                 });
 
-                
                 const sortedYears = Array.from(yearsMap.values()).sort((a, b) => b.year - a.year);
 
                 setGalleries(sortedYears);
