@@ -69,7 +69,7 @@ export default function GalleryPage() {
                     {loading ? (
                         <p className="text-center text-xl text-gray-500">Loading...</p>
                     ) : galleries.length === 0 ? (
-                        <p className="text-center text-xl text-gray-500">No galleries available</p>
+                        <p className="text-center text-xl text-gray-500 py-4 bg-gray-500">No Galleries Data Available...</p>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                             {galleries.map((gallery, index) => (
