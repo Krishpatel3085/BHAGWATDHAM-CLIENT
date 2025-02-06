@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Button } from "../components/ui/Button";
 import { Card, CardContent } from "../components/ui/Card";
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -127,34 +126,6 @@ export default function AboutPage() {
                             ))}
                         </div>
                     </div>
-                </div>
-            </section>
-
-            {/* Enrollment Section */}
-            <section className="py-16">
-                <div className="container mx-auto px-4 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5 }}
-                        className="max-w-3xl mx-auto space-y-6"
-                    >
-                        <h2 className="text-2xl md:text-3xl font-bold text-secondary">
-                            ENROLL YOUR SON IN A HOLISTIC LEARNING JOURNEY
-                        </h2>
-                        <p className="text-text">
-                            OUR COMMITMENT TO SWASTHYA, SHIKSHANA, SANSKAR AND
-                            <br />
-                            SAMARPANA ENSURES A WELL-ROUNDED EDUCTION
-                        </p>
-                        <Button
-                            className="bg-primary text-white hover:bg-secondary"
-                            size="lg"
-                        >
-                            APPLY FOR ADMISSION
-                        </Button>
-                    </motion.div>
                 </div>
             </section>
 
