@@ -22,33 +22,20 @@ const upload = multer({
     })
 })
 
-const uploadBook = multer({
-    storage: multers3({
-        s3: s3,
-        bucket: BUCKET_NAME,
-        metadata: function (req, file, cb) {
-            cb(null, { fieldname: file.fieldname })
-        },
-        key: function (req, file, cb) {
-            cb(null, file.originalname);
-        },
-    })
-})
-
 // Upload Image 
 const CreatePublication = async (req, res) => {
     try {
-        if (!req.files || !req.files['Img'] || !req.files['Pdf']) {
+        if (!req.files['Img']) {
             return res.status(400).json({ message: 'Image and PDF files are required' });
         }
 
-        const { Publication, PublicationName, Description, PublicationDate } = req.body;
+        const { Publication, PublicationName, Description, PublicationDate, Link } = req.body;
         const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Img'][0].key}`;
-        const Pdf = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}`;
+        const Pdf = req.files['Pdf'] 
+            ? `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}` 
+            : null; // Allow Pdf to be optional
+        
 
-        console.log("Data Fetch", req.body);
-        console.log("Img Fetch", Img);
-        console.log("Pdf Fetch", Pdf);
 
         const Publications = await PublicationSchema.create({
             Publication,
@@ -56,7 +43,8 @@ const CreatePublication = async (req, res) => {
             Description,
             PublicationDate,
             Img,
-            Pdf
+            Pdf,
+            Link
         });
 
         res.status(200).json({ message: 'Publication created successfully', Publications });
@@ -80,11 +68,8 @@ const GetPublication = async (req, res) => {
 // Update Image (Text & Image)
 const updatePublication = async (req, res) => {
     try {
-        const { Publication, PublicationName, Description, PublicationDate } = req.body;
+        const { Publication, PublicationName, Description, PublicationDate, Link } = req.body;
         const id = req.params.id;
-
-        console.log("Updating Publication ID:", id);
-        console.log("Received Data:", req.body);
 
         const existingPublication = await PublicationSchema.findById(id);
         if (!existingPublication) {
@@ -116,7 +101,7 @@ const updatePublication = async (req, res) => {
 
         const updatedPublication = await PublicationSchema.findByIdAndUpdate(
             id,
-            { Publication, PublicationName, Description, PublicationDate, Img: updatedImg, Pdf: updatedPdf },
+            { Publication, PublicationName, Description, PublicationDate, Link, Img: updatedImg, Pdf: updatedPdf },
             { new: true }
         );
 
@@ -162,4 +147,4 @@ const deletePublication = async (req, res) => {
 };
 
 
-module.exports = { CreatePublication, GetPublication, upload, uploadBook, deletePublication, updatePublication }
+module.exports = { CreatePublication, GetPublication, upload, deletePublication, updatePublication }

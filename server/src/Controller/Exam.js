@@ -5,9 +5,7 @@ const ExamSchema = require('../Model/exam')
 const createExam = async (req, res) => {
     try {
         const User = req.user['id'];
-        console.log("User", User)
         const { Subject, Class, ExamDate, ExamTime, Room, status } = req.body;
-        console.log("Exam data:", req.body)
 
         if (!Subject || !Class || !ExamDate || !ExamTime || !Room) {
             return res.status(400).json({ message: "All fields are required" });

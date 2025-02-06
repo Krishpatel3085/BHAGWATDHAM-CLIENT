@@ -4,23 +4,18 @@ const ActivitiesSchema = new mongoose.Schema({
 
     ActivitiesName: {
         type: String,
-        // required: true
     },
     ActivitiesSubject: {
         type: String,
-        // required: true
     },
     ActivitiesDate: {
         type: String,
-        // required: true
     },
     ActivitiesTime: {
         type: String,
-        // required: true
     },
     ActivitiesDescription: {
         type: String,
-        // required: true
     },
     Img: {
         type: String,

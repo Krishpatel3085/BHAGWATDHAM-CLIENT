@@ -12,7 +12,6 @@ const MarksheetSchema = new mongoose.Schema({
     },
     Class: {
         type: String,
-        // required: true
     },
     examType: {
         type: String,
