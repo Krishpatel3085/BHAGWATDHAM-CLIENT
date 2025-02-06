@@ -159,7 +159,7 @@ const getTeacherById = async (req, res) => {
     try {
         const { id: _id } = req.params;
         const teacher = await teacherSchema.findOne({ Teacher: _id });
-        console.log("check teacher", teacher)
+       
         res.status(200).json({ Message: "Teacher found", teacher });
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -179,7 +179,7 @@ const getAllTeachers = async (req, res) => {
 const AttendanceCreate = async (req, res) => {
     try {
         const { status, remark, employeeNo, date } = req.body;
-        console.log("Teacheer Attendance", req.body)
+       
         if (!employeeNo) {
             return res.status(400).json({ message: "employeeNo is required" });
         }

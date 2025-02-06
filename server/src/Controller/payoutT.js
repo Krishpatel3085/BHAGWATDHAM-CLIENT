@@ -3,7 +3,7 @@ const teacherSchema = require('../Model/teacher')
 const updateTeacherPayout = async (req, res) => {
     try {
         const { bonus, employeeNo, total, salary, NetPay, month, paymentMethod } = req.body;
-        console.log("Teacher data:", req.body);
+       
 
         if (!employeeNo) {
             return res.status(400).json({ message: "All fields are required" });

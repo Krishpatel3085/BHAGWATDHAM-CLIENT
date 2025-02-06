@@ -4,8 +4,7 @@ const lectureSchema = require('../Model/lecture')
 const createLecture = async (req, res) => {
     try {
         const { dayOfWeek, subject, startTime, endTime, teacherName, grade, lectureNo, id } = req.body;
-        console.log("Get Lecture data", req.body);
-        console.log(req.body);
+     
 
         // Validate the required fields
         if (!grade || !endTime || !startTime || !dayOfWeek || !subject || !teacherName) {
@@ -63,7 +62,6 @@ const getLectures = async (req, res) => {
 const updateLecture = async (req, res) => {
     try {
         const ids = req.params.id;
-        console.log(ids)
         const data = { dayOfWeek, subject, startTime, endTime, teacherName, grade, lectureNo, id } = req.body
         const lecture = await lectureSchema.findByIdAndUpdate(ids, data, { new: true })
         if (!lecture) return res.status(404).json({ message: 'Lecture not found' })

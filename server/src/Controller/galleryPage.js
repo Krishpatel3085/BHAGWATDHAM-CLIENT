@@ -28,8 +28,6 @@ const uploadGalleryPage = async (req, res) => {
         const { ImageName, ImageSubject, Imageyear } = req.body
         const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
 
-        console.log("Data Fetch", req.body)
-        console.log("Img Fetch", Img)
         const gallery = await GalleryPageSchema.create({
             ImageName: ImageName,
             ImageSubject: ImageSubject,
@@ -64,8 +62,7 @@ const updateGalleryPage = async (req, res) => {
     try {
         const { ImageName, ImageSubject, Imageyear } = req.body;
         const id = req.params.id;
-        console.log(" id ", id)
-        console.log('Received update data:', req.body);
+      
 
         const existingGallery = await GalleryPageSchema.findById(id);
 

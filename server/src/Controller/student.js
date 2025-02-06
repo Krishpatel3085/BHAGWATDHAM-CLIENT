@@ -63,8 +63,7 @@ const uploadProfileImage = async (req, res) => {
             return res.status(400).json({ message: "No file uploaded" });
         }
         const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
-        console.log("Uploaded file URL:", url);
-
+        
         const { studentId } = req.body;
 
         if (!studentId) {

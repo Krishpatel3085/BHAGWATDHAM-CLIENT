@@ -1,5 +1,5 @@
 const express = require('express');
-const { CreatePublication, GetPublication, upload, uploadBook, deletePublication, updatePublication } = require('../Controller/Publication');
+const { CreatePublication, GetPublication, upload, deletePublication, updatePublication } = require('../Controller/Publication');
 
 
 const publication_router = express.Router()

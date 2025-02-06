@@ -28,8 +28,6 @@ const CreateActivities = async (req, res) => {
         const { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription } = req.body
         const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
 
-        console.log("Data Fetch", req.body)
-        console.log("Img Fetch", Img)
         const activities = await ActivitiesSchema.create({
             ActivitiesName: ActivitiesName,
             ActivitiesSubject: ActivitiesSubject,
@@ -65,9 +63,7 @@ const updateTActivities = async (req, res) => {
     try {
         const { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription } = req.body
         const id = req.params.id;
-        console.log(" id ", id)
-        console.log('Received update data:', req.body);
-
+       
         const existingGallery = await ActivitiesSchema.findById(id);
 
         if (!existingGallery) {

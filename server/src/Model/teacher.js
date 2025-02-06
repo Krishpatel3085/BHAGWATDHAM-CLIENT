@@ -6,24 +6,19 @@ const teacherSchema = new mongoose.Schema({
 
     name: {
         type: String,
-        // required: true
     },
     employeeNo: {
         type: String,
         unique: true,
-        // required: true
     },
     salary: {
         type: Number,
-        // required: true
     },
     address: {
         type: String,
-        // required: true
     },
     age: {
         type: Number,
-        // required: true
     },
     subject: {
         type: String,
@@ -31,7 +26,6 @@ const teacherSchema = new mongoose.Schema({
     },
     grade: {
         type: String,
-        // required: true
     },
     Teacher: {
         type: mongoose.Schema.Types.ObjectId,
@@ -47,7 +41,6 @@ const teacherSchema = new mongoose.Schema({
     },
     NetPay: {
         type: Number
-        // required: true
     },
     status: {
         type: String,
@@ -60,11 +53,9 @@ const teacherSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        // required: true
     },
     paymentMethod: {
         type: String,
-        // required: true
     },
     Attendance: [{
         date: {

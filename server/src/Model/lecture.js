@@ -20,15 +20,12 @@ const lectureSchema = new mongoose.Schema({
     },
     teacherName: {
         type: String,
-        // required: true
     },
     startTime :{
         type: String,
-        // required: true
     },
     endTime :{
         type: String,
-        // required: true
     },
     id:{
         type: String,

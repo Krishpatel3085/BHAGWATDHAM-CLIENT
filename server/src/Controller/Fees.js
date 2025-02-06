@@ -3,7 +3,7 @@ const studentSchema = require('../Model/student')
 const updateStudentFees = async (req, res) => {
     try {
         const { TotalAmount, PaidAmount, studentId, dueDate, Fees } = req.body;
-        console.log("Student data:", req.body);
+        
 
         if (!TotalAmount || !PaidAmount || !studentId) {
             return res.status(400).json({ message: "All fields are required" });
