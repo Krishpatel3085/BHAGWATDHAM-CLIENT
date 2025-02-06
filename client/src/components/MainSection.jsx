@@ -8,12 +8,15 @@ import About2 from '../images/AboutUsImage/About2.jpg';
 function MainSection() {
     const location = useLocation(); 
 
-    const formatPageName = (path) => {
-        const name = path.replace('/', '') || 'home';
-        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    const formatPathSegments = (path) => {
+        return path
+            .replace(/^\//, '')
+            .split('/')
+            .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1));
     };
 
-    const pageName = formatPageName(location.pathname);
+    const pathSegments = formatPathSegments(location.pathname);
+    const mainRoute = pathSegments[0]; 
 
     return (
         <div>
@@ -33,10 +36,15 @@ function MainSection() {
                     >
                         <div className="flex items-center justify-center space-x-2 text-md mb-4 font-bold">
                             <a href="/" className='hover:text-accent transition-colors'>Home</a>
-                            <FaAngleDoubleRight className="text-gray-400" />
-                            <span className='text-white '>{pageName}</span>
+                            {pathSegments.map((segment, index) => (
+                                <React.Fragment key={index}>
+                                    <FaAngleDoubleRight className="text-gray-400" />
+                                    <span className="text-white">{segment}</span>
+                                </React.Fragment>
+                            ))}
                         </div>
-                        <h1 className="text-4xl font-bold">Our {pageName}</h1>
+
+                        <h1 className="text-4xl font-bold">Our {mainRoute}</h1>
                     </motion.div>
                 </div>
             </section>
