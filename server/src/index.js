@@ -18,14 +18,7 @@ const app = express()
 app.use(express.json())
 app.use(cors());
 dotenv.config()
-const aws = require('aws-sdk')
 
-
-aws.config.update({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: process.env.AWS_REGION,
-});
 
 app.use('/user', admin_router)
 app.use('/Event', event_router)

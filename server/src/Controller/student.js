@@ -4,8 +4,9 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 
-const aws = require('aws-sdk');
-const s3 = new aws.S3();
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
+
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 // Create
@@ -48,8 +49,9 @@ const uploadProfileImage = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: "No file uploaded" });
         }
-        const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
-        
+
+        const url = await uploadToS3(req.file);
+
         const { studentId } = req.body;
 
         if (!studentId) {
@@ -66,15 +68,14 @@ const uploadProfileImage = async (req, res) => {
             const oldImageKey = student.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
             console.log("Deleting old image:", oldImageKey);
 
-            await s3
-                .deleteObject({
-                    Bucket: BUCKET_NAME,
-                    Key: oldImageKey,
-                })
-                .promise();
+            await s3.send(new DeleteObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: oldImageKey,
+            }));
 
             console.log("Old image deleted successfully");
         }
+
         const updatedStudent = await studentSchema.findOneAndUpdate(
             { studentId },
             { $set: { url: url } },
@@ -200,13 +201,13 @@ const AttendanceCreate = async (req, res) => {
             {
                 $push: {
                     Attendance: {
-                        date: date || new Date(), 
+                        date: date || new Date(),
                         attendance: status,
-                        remark:remark, 
+                        remark: remark,
                     },
                 },
             },
-            { new: true } 
+            { new: true }
         );
 
         if (!updatedStudent) {

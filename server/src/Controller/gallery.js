@@ -2,19 +2,18 @@ const TempleGallerySchema = require('../Model/gallery')
 const dotenv = require('dotenv');
 dotenv.config()
 
-
-const aws = require('aws-sdk');
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
-const s3 = new aws.S3();
 
 
 // Upload Image 
 const uploadTempleGallery = async (req, res) => {
     try {
         const { ImageName, ImageSubject } = req.body
-        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
+        // const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
+        const Img = await uploadToS3(req.file);
 
-      
         const gallery = await TempleGallerySchema.create({
             ImageName: ImageName,
             ImageSubject: ImageSubject,
@@ -48,7 +47,7 @@ const updateTempleGallery = async (req, res) => {
     try {
         const { ImageName, ImageSubject } = req.body;
         const id = req.params.id;
-      
+
         const existingGallery = await TempleGallerySchema.findById(id);
 
         if (!existingGallery) {
@@ -58,18 +57,18 @@ const updateTempleGallery = async (req, res) => {
         let updatedImg = existingGallery.Img;
         const oldImageKey = existingGallery.Img ? existingGallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1] : null;
 
+
         if (req.file) {
-            // Delete old image if it exists
             if (oldImageKey) {
-                await s3.deleteObject({
+                await s3.send(new DeleteObjectCommand({
                     Bucket: BUCKET_NAME,
                     Key: oldImageKey,
-                }).promise();
+                }));
             }
 
-            // Store the new image URL
-            updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+            updatedImg = await uploadToS3(req.file);
         }
+
 
         // Update the gallery with new details
         const updatedGallery = await TempleGallerySchema.findByIdAndUpdate(id,
@@ -99,11 +98,10 @@ const deleteTempleGallery = async (req, res) => {
         const imageKey = gallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
 
         if (imageKey) {
-            // Delete image from AWS S3
-            await s3.deleteObject({
+            await s3.send(new DeleteObjectCommand({
                 Bucket: BUCKET_NAME,
                 Key: imageKey,
-            }).promise();
+            }));
         }
 
         // Delete image details from DB

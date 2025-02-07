@@ -4,9 +4,9 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 
-const aws = require('aws-sdk');
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
-const s3 = new aws.S3();
 
 // Create
 const createTeacher = async (req, res) => {
@@ -85,7 +85,9 @@ const uploadProfileImageTeacher = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: "No file uploaded" });
         }
-        const url = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+
+        const url = await uploadToS3(req.file);
+
         console.log("Uploaded file URL:", url);
 
         const { employeeNo } = req.body;
@@ -101,15 +103,13 @@ const uploadProfileImageTeacher = async (req, res) => {
         }
 
         if (teacher.url) {
-            const oldImageKey = student.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
+            const oldImageKey = teacher.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
             console.log("Deleting old image:", oldImageKey);
 
-            await s3
-                .deleteObject({
-                    Bucket: BUCKET_NAME,
-                    Key: oldImageKey,
-                })
-                .promise();
+            await s3.send(new DeleteObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: oldImageKey,
+            }));
 
             console.log("Old image deleted successfully");
         }
@@ -145,7 +145,7 @@ const getTeacherById = async (req, res) => {
     try {
         const { id: _id } = req.params;
         const teacher = await teacherSchema.findOne({ Teacher: _id });
-       
+
         res.status(200).json({ Message: "Teacher found", teacher });
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -165,7 +165,7 @@ const getAllTeachers = async (req, res) => {
 const AttendanceCreate = async (req, res) => {
     try {
         const { status, remark, employeeNo, date } = req.body;
-       
+
         if (!employeeNo) {
             return res.status(400).json({ message: "employeeNo is required" });
         }

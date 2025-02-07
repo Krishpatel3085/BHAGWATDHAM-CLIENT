@@ -2,10 +2,10 @@ const PublicationSchema = require('../Model/Publication')
 const dotenv = require('dotenv');
 dotenv.config()
 
-
-const aws = require('aws-sdk');
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
-const s3 = new aws.S3();
+const REGION = process.env.AWS_REGION;
 
 // Upload Image 
 const CreatePublication = async (req, res) => {
@@ -15,12 +15,13 @@ const CreatePublication = async (req, res) => {
         }
 
         const { Publication, PublicationName, Description, PublicationDate, Link } = req.body;
-        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Img'][0].key}`;
-        const Pdf = req.files['Pdf'] 
-            ? `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}` 
-            : null; // Allow Pdf to be optional
-        
+        const Img = req.files['Img']
+            ? await uploadToS3(req.files['Img'][0])
+            : null;
 
+        const Pdf = req.files['Pdf']
+            ? await uploadToS3(req.files['Pdf'][0])
+            : null;
 
         const Publications = await PublicationSchema.create({
             Publication,
@@ -67,20 +68,26 @@ const updatePublication = async (req, res) => {
         if (req.files) {
             // Update Image
             if (req.files['Img']) {
-                const oldImageKey = existingPublication.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
+                const oldImageKey = existingPublication.Img.split(`${BUCKET_NAME}.s3.${REGION}.amazonaws.com/`)[1];
                 if (oldImageKey) {
-                    await s3.deleteObject({ Bucket: BUCKET_NAME, Key: oldImageKey }).promise();
+                    await s3.send(new DeleteObjectCommand({
+                        Bucket: BUCKET_NAME,
+                        Key: oldImageKey,
+                    }));
                 }
-                updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Img'][0].key}`;
+                updatedImg = await uploadToS3(req.files['Img'][0]);
             }
 
             // Update PDF
             if (req.files['Pdf']) {
-                const oldPdfKey = existingPublication.Pdf.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
+                const oldPdfKey = existingPublication.Pdf.split(`${BUCKET_NAME}.s3.${REGION}.amazonaws.com/`)[1];
                 if (oldPdfKey) {
-                    await s3.deleteObject({ Bucket: BUCKET_NAME, Key: oldPdfKey }).promise();
+                    await s3.send(new DeleteObjectCommand({
+                        Bucket: BUCKET_NAME,
+                        Key: oldPdfKey,
+                    }));
                 }
-                updatedPdf = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.files['Pdf'][0].key}`;
+                updatedPdf = await uploadToS3(req.files['Pdf'][0]);
             }
         }
 
@@ -112,12 +119,19 @@ const deletePublication = async (req, res) => {
         const imageKey = gallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
 
         if (imageKey) {
-            // Delete image from AWS S3
-            await s3.deleteObject({
+            await s3.send(new DeleteObjectCommand({
                 Bucket: BUCKET_NAME,
                 Key: imageKey,
-            }).promise();
+            }));
         }
+
+        if (pdfKey) {
+            await s3.send(new DeleteObjectCommand({
+                Bucket: BUCKET_NAME,
+                Key: pdfKey,
+            }));
+        }
+
 
         // Delete image details from DB
         await PublicationSchema.findByIdAndDelete(id);
