@@ -2,18 +2,16 @@ const GalleryPageSchema = require('../Model/GalleryPage')
 const dotenv = require('dotenv');
 dotenv.config()
 
-
-const aws = require('aws-sdk');
-const s3 = new aws.S3();
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
-
 
 
 // Upload Image 
 const uploadGalleryPage = async (req, res) => {
     try {
         const { ImageName, ImageSubject, Imageyear } = req.body
-        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
+        const Img = await uploadToS3(req.file);
 
         const gallery = await GalleryPageSchema.create({
             ImageName: ImageName,
@@ -49,7 +47,7 @@ const updateGalleryPage = async (req, res) => {
     try {
         const { ImageName, ImageSubject, Imageyear } = req.body;
         const id = req.params.id;
-      
+
 
         const existingGallery = await GalleryPageSchema.findById(id);
 
@@ -61,16 +59,14 @@ const updateGalleryPage = async (req, res) => {
         const oldImageKey = existingGallery.Img ? existingGallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1] : null;
 
         if (req.file) {
-            // Delete old image if it exists
             if (oldImageKey) {
-                await s3.deleteObject({
+                await s3.send(new DeleteObjectCommand({
                     Bucket: BUCKET_NAME,
                     Key: oldImageKey,
-                }).promise();
+                }));
             }
 
-            // Store the new image URL
-            updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+            updatedImg = await uploadToS3(req.file);
         }
 
         // Update the gallery with new details
@@ -101,11 +97,10 @@ const deleteGalleryPage = async (req, res) => {
         const imageKey = gallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
 
         if (imageKey) {
-            // Delete image from AWS S3
-            await s3.deleteObject({
+            await s3.send(new DeleteObjectCommand({
                 Bucket: BUCKET_NAME,
                 Key: imageKey,
-            }).promise();
+            }));
         }
 
         // Delete image details from DB
@@ -120,4 +115,4 @@ const deleteGalleryPage = async (req, res) => {
     }
 };
 
-module.exports = { uploadGalleryPage, getAllGalleryPages, updateGalleryPage,deleteGalleryPage }
+module.exports = { uploadGalleryPage, getAllGalleryPages, updateGalleryPage, deleteGalleryPage }

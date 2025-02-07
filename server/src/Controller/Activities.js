@@ -2,15 +2,16 @@ const ActivitiesSchema = require('../Model/Activities')
 const dotenv = require('dotenv');
 dotenv.config()
 
-const aws = require('aws-sdk');
-const s3 = new aws.S3();
+// const s3 = require('../Middleware/aws')
+const { uploadToS3, s3 } = require('../Middleware/aws')
+const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
 
 // Upload Image 
 const CreateActivities = async (req, res) => {
     try {
         const { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription } = req.body
-        const Img = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`
+        const Img = await uploadToS3(req.file);
 
         const activities = await ActivitiesSchema.create({
             ActivitiesName: ActivitiesName,
@@ -36,7 +37,7 @@ const FetchAllActivities = async (req, res) => {
     try {
         const activities = await ActivitiesSchema.find({})
         res.status(200).json({ message: 'All images fetched successfully', activities })
-      
+
     } catch (error) {
         console.error(error)
         res.status(500).json({ message: 'Internal Server Error' })
@@ -47,7 +48,7 @@ const updateTActivities = async (req, res) => {
     try {
         const { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription } = req.body
         const id = req.params.id;
-       
+
         const existingGallery = await ActivitiesSchema.findById(id);
 
         if (!existingGallery) {
@@ -58,21 +59,19 @@ const updateTActivities = async (req, res) => {
         const oldImageKey = existingGallery.Img ? existingGallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1] : null;
 
         if (req.file) {
-            // Delete old image if it exists
             if (oldImageKey) {
-                await s3.deleteObject({
+                await s3.send(new DeleteObjectCommand({
                     Bucket: BUCKET_NAME,
                     Key: oldImageKey,
-                }).promise();
+                }));
             }
 
-            // Store the new image URL
-            updatedImg = `https://${BUCKET_NAME}.s3.amazonaws.com/${req.file.key}`;
+            updatedImg = await uploadToS3(req.file);
         }
 
         // Update the gallery with new details
         const updatedGallery = await ActivitiesSchema.findByIdAndUpdate(id,
-            { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription, Img: updatedImg  },
+            { ActivitiesName, ActivitiesSubject, ActivitiesDate, ActivitiesTime, ActivitiesDescription, Img: updatedImg },
             { new: true }
         );
 
@@ -97,12 +96,12 @@ const deleteTempleActivities = async (req, res) => {
         const imageKey = gallery.Img.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1];
 
         if (imageKey) {
-            // Delete image from AWS S3
-            await s3.deleteObject({
+            await s3.send(new DeleteObjectCommand({
                 Bucket: BUCKET_NAME,
                 Key: imageKey,
-            }).promise();
+            }));
         }
+
 
         // Delete image details from DB
         await ActivitiesSchema.findByIdAndDelete(id);
