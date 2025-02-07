@@ -1,6 +1,6 @@
 const express = require('express');
-const {  CreateActivities, upload ,FetchAllActivities ,updateTActivities,deleteTempleActivities} = require('../Controller/Activities');
-
+const { CreateActivities, FetchAllActivities, updateTActivities, deleteTempleActivities } = require('../Controller/Activities');
+const { upload } = require('../Middleware/aws')
 const Activities_router = express.Router();
 
 Activities_router.post('/CreateActivities', upload.single('Img'), CreateActivities);

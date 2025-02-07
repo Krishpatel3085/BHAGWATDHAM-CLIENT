@@ -1,6 +1,7 @@
 const express = require('express')
-const { getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachers, uploadProfileImageTeacher, upload, AttendanceCreate } = require("../Controller/teacher")
+const { getTeacherById, createTeacher, updateTeacher, deleteTeacher, getAllTeachers, uploadProfileImageTeacher, AttendanceCreate } = require("../Controller/teacher")
 const { updateTeacherPayout } = require("../Controller/payoutT")
+const { upload } = require('../Middleware/aws')
 
 
 const teacher_router = express.Router()

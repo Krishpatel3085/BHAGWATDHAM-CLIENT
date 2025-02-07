@@ -1,5 +1,6 @@
 const express = require('express');
-const { uploadGalleryPage, upload, getAllGalleryPages, updateGalleryPage, deleteGalleryPage } = require('../Controller/galleryPage');
+const { uploadGalleryPage, getAllGalleryPages, updateGalleryPage, deleteGalleryPage } = require('../Controller/galleryPage');
+const { upload } = require('../Middleware/aws')
 
 const GalleryPage_router = express.Router();
 

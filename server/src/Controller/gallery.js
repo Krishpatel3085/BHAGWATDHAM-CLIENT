@@ -1,26 +1,12 @@
 const TempleGallerySchema = require('../Model/gallery')
-const multer = require("multer");
 const dotenv = require('dotenv');
 dotenv.config()
 
 
 const aws = require('aws-sdk');
-const multers3 = require('multer-s3')
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const s3 = new aws.S3();
 
-const upload = multer({
-    storage: multers3({
-        s3: s3,
-        bucket: BUCKET_NAME,
-        metadata: function (req, file, cb) {
-            cb(null, { fieldname: file.fieldname })
-        },
-        key: function (req, file, cb) {
-            cb(null, file.originalname);
-        },
-    })
-})
 
 // Upload Image 
 const uploadTempleGallery = async (req, res) => {
@@ -132,4 +118,4 @@ const deleteTempleGallery = async (req, res) => {
     }
 };
 
-module.exports = { uploadTempleGallery, upload, getAllTempleGallery, updateTempleGallery, deleteTempleGallery }
+module.exports = { uploadTempleGallery, getAllTempleGallery, updateTempleGallery, deleteTempleGallery }

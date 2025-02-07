@@ -1,6 +1,7 @@
 const express = require('express')
-const { createStudent, updateStudent, deleteStudent, getStudentById, getAllStudents, upload,uploadProfileImage,AttendanceCreate} = require("../Controller/student")
+const { createStudent, updateStudent, deleteStudent, getStudentById, getAllStudents,uploadProfileImage,AttendanceCreate} = require("../Controller/student")
 const { updateStudentFees, getStudentFees } = require("../Controller/Fees")
+const { upload } = require('../Middleware/aws')
 
 
 const student_router = express.Router()
