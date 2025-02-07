@@ -1,5 +1,6 @@
 const express = require('express');
-const { uploadTempleGallery, upload, getAllTempleGallery, updateTempleGallery, deleteTempleGallery } = require('../Controller/gallery');
+const { uploadTempleGallery, getAllTempleGallery, updateTempleGallery, deleteTempleGallery } = require('../Controller/gallery');
+const { upload } = require('../Middleware/aws')
 
 const TempleGallery_router = express.Router();
 

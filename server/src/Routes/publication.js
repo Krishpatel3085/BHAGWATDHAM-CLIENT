@@ -1,5 +1,6 @@
 const express = require('express');
-const { CreatePublication, GetPublication, upload, deletePublication, updatePublication } = require('../Controller/Publication');
+const { CreatePublication, GetPublication, deletePublication, updatePublication } = require('../Controller/Publication');
+const { upload } = require('../Middleware/aws')
 
 
 const publication_router = express.Router()
