@@ -9,10 +9,13 @@ import GalleryPage from './Pages/Gallery.jsx';
 import SchoolPage from './Pages/School.jsx';
 import ActivitiesDetailsPage from './Pages/ActivitiesDetailsPage.jsx';
 import YearGalleryPage from './Pages/YearGalleryPage.jsx';
+import ScrollToTop from './Pages/ScrollToTop.jsx';
+import AdmissionForm from './Pages/AdmissionForm .jsx';
 
 function App() {
   return (
     <>
+    <ScrollToTop/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/school' element={<SchoolPage />} />
@@ -23,6 +26,7 @@ function App() {
         <Route path='/aboutus' element={<About />} />
         <Route path='/contactus' element={<ContactPage />} />
         <Route path='/year/:year' element={<YearGalleryPage />} />
+        <Route path='/admissionForm' element={<AdmissionForm/>}/>
 
       </Routes>
     </>

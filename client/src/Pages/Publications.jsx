@@ -71,7 +71,7 @@ export default function PublicationsPage() {
       {/* Publications Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <AnimatePresence>
               {loading ? (
                 // Show Skeleton while loading
@@ -92,7 +92,7 @@ export default function PublicationsPage() {
                       exit={{ opacity: 0, scale: 0.9 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Card className="group hover:shadow-lg transition-shadow duration-300 bg-background border-primary">
+                      <Card className="group hover:shadow-lg transition-shadow duration-300  bg-background border-primary">
                         <CardContent className="p-0">
                           <div className="relative overflow-hidden">
                             <Image
@@ -100,7 +100,7 @@ export default function PublicationsPage() {
                               alt={publication.PublicationName}
                               width={400}
                               height={400}
-                              className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105 object-center object-top"
+                              className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105 object-center object-top rounded-lg"
                             />
                             <div
                               className={`absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300`}
