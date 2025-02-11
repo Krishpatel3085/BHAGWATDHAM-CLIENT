@@ -7,6 +7,7 @@ dotenv.config()
 const { uploadToS3, s3 } = require('../Middleware/aws')
 const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 const BUCKET_NAME = process.env.BUCKET_NAME;
+const REGION = process.env.AWS_REGION;
 
 // Create
 const createTeacher = async (req, res) => {
@@ -103,7 +104,7 @@ const uploadProfileImageTeacher = async (req, res) => {
         }
 
         if (teacher.url) {
-            const oldImageKey = teacher.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
+            const oldImageKey = teacher.url.split(`${BUCKET_NAME}.s3.${REGION}.amazonaws.com/`)[1]; // Extract the key from the URL
             console.log("Deleting old image:", oldImageKey);
 
             await s3.send(new DeleteObjectCommand({

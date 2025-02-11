@@ -8,6 +8,7 @@ const { uploadToS3, s3 } = require('../Middleware/aws')
 const { DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
+const REGION = process.env.AWS_REGION;
 
 // Create
 const createStudent = async (req, res) => {
@@ -65,7 +66,7 @@ const uploadProfileImage = async (req, res) => {
         }
 
         if (student.url) {
-            const oldImageKey = student.url.split(`${BUCKET_NAME}.s3.amazonaws.com/`)[1]; // Extract the key from the URL
+            const oldImageKey = student.url.split(`${BUCKET_NAME}.s3.${REGION}.amazonaws.com/`)[1]; // Extract the key from the URL
             console.log("Deleting old image:", oldImageKey);
 
             await s3.send(new DeleteObjectCommand({
@@ -193,6 +194,22 @@ const AttendanceCreate = async (req, res) => {
 
         if (!studentId) {
             return res.status(400).json({ message: "studentId is required" });
+        }
+        const student = await studentSchema.findOne({ studentId });
+
+        if (!student) {
+            return res.status(404).json({ message: "Student not found" });
+        }
+
+        // Check if attendance is already marked for today
+        const todayDate = new Date().toISOString().split("T")[0];
+
+        const alreadyMarked = student.Attendance.some((entry) => {
+            return entry.date.toISOString().split("T")[0] === todayDate;
+        });
+
+        if (alreadyMarked) {
+            return res.status(400).json({ message: "Attendance already marked for this date" });
         }
 
         // Find the student and push the attendance entry
