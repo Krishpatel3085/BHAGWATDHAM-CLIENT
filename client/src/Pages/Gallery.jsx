@@ -67,7 +67,7 @@ export default function GalleryPage() {
             <section className="py-16">
                 <div className="container mx-auto px-4">
                     {loading ? (
-                        <p className="text-center text-xl text-gray-500">Loading...</p>
+                        <p className="text-center text-xl text-gray-500">Loading Gallery...</p>
                     ) : galleries.length === 0 ? (
                         <p className="text-center text-xl text-gray-500 py-4 bg-gray-500">No Galleries Data Available...</p>
                     ) : (
@@ -90,7 +90,7 @@ export default function GalleryPage() {
                                                     alt={`Gallery ${gallery.year}`}
                                                     width={400}
                                                     height={400}
-                                                    className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
+                                                    className="w-full aspect-square object-cover object-top transition-transform duration-300 group-hover:scale-105"
                                                 />
                                                 <div className={`absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-300`} />
                                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

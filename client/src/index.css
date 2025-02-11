@@ -14,3 +14,10 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* gallary image */
+.masonry-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

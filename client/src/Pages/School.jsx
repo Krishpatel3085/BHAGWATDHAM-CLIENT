@@ -8,6 +8,7 @@ import { Footer } from "../components/Footer";
 import { Image } from "../components/ui/Image";
 import building from "../images/School/School-building.jpg";
 import MainSection from "../components/MainSection";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -219,16 +220,18 @@ export default function SchoolPage() {
               Join our community where academic excellence meets spiritual
               growth
             </p>
-            <Button className="bg-accent text-text hover:bg-white" size="lg">
+            {/* <Button className="bg-accent text-text hover:bg-white" size="lg">
               APPLY FOR ADMISSION
-            </Button>
+            </Button> */}
+            <Link to='/admissionForm' className="bg-accent text-text  p-2 rounded-lg text-white hover:text-black"  size="lg">
+              Apply For Admisssion  
+            </Link>
           </motion.div>
         </div>
         <div className="absolute inset-0 bg-black opacity-10" />
       </section>
 
     
-
       {/* Stats Section with Scroll Counter */}
       <section className="py-16" ref={statsRef}>
         <div className="container mx-auto px-4">
